@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Services.GenericRepository;
 using Services.GenericRepository.Implementation;
+using Services.QuestionManagement;
+using Services.QuestionManagement.Implementation;
 
 namespace Services
 {
@@ -12,9 +14,10 @@ namespace Services
     {
         public static void RegisterServices(this IServiceCollection services, IConfiguration config)
         {
-            services.AddDbContext<IDatabaseContext, DatabaseContext>(opt => opt.UseMySql(config.GetConnectionString("default"), ServerVersion.Parse(config.GetConnectionString("ServerVersion"))));
+            services.AddDbContext<IDatabaseContext, DatabaseContext>(opt => opt.UseMySql(config.GetConnectionString("Default"), ServerVersion.Parse(config.GetConnectionString("ServerVersion"))));
             services.AddScoped<IGenericQuerier, GenericQuerier>();
             services.AddScoped<IGenericRepo, GenericRepo>();
+            services.AddScoped<IQuestionManager, QuestionManager>();
         }
     }
 }
