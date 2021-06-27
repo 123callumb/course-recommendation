@@ -13,7 +13,7 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
-_tsBin
+Application/_tsBin
 
 # Build results
 [Dd]ebug/
