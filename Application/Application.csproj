@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="_tsbin\**" />
+    <Content Remove="_tsbin\**" />
+    <EmbeddedResource Remove="_tsbin\**" />
+    <None Remove="_tsbin\**" />
     <TypeScriptCompile Remove="node_modules\**" />
+    <TypeScriptCompile Remove="_tsbin\**" />
   </ItemGroup>
 
   <ItemGroup>
