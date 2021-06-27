@@ -1,0 +1,47 @@
+{
+  "name": "course-recommendation",
+  "version": "1.0.0",
+  "description": "Course recommendation front-end for Sheffield Council",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Callum Beckwith",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "@babel/preset-typescript": "^7.6.0",
+    "@types/react": "^16.9.9",
+    "@types/react-dom": "^16.9.2",
+    "@types/react-redux": "^7.1.1",
+    "@types/react-router-dom": "^5.1.0",
+    "@types/webpack-env": "^1.14.1",
+    "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "5.1.2",
+    "css-loader": "^3.2.0",
+    "css-modules-typescript-loader": "^3.0.1",
+    "file-loader": "^5.0.2",
+    "node-sass": "5.0.0",
+    "prop-types": "^15.7.2",
+    "redux-devtools-extension": "^2.13.8",
+    "sass-loader": "10.1.0",
+    "source-map-loader": "^0.2.4",
+    "style-loader": "^1.0.0",
+    "typescript": "^3.6.4",
+    "webpack": "^4.41.2",
+    "webpack-cli": "4.2.0"
+  },
+  "dependencies": {
+    "connected-react-router": "6.6.1",
+    "framer-motion": "2.9.0",
+    "node-gyp": "^3.8.0",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-redux": "7.1.3",
+    "react-router": "5.1.2",
+    "react-router-dom": "5.1.2",
+    "redux": "4.0.4"
+  }
+}
