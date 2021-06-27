@@ -1,1 +1,1 @@
-﻿console.log("we out here working and webpacking")
+﻿require('./script/Pages/RoutePage');
