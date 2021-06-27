@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "server=localhost;port=3306;user=root;database=course_recommendation" Pomelo.EntityFrameworkCore.MySql -OutputDir EntityFramework/DbEntities -Context DatabaseContext -f -StartupProject Library

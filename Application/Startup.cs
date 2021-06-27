@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Services;
 
 namespace Application
 {
@@ -25,12 +26,12 @@ namespace Application
             services.AddMemoryCache();
             services.AddSession(opt =>
             {
-                opt.Cookie.Name = ".LTI.Session";
+                opt.Cookie.Name = ".cr.Session";
                 opt.Cookie.SameSite = SameSiteMode.Strict;
             });
 
             // Services internal to this project from the services solution
- 
+            services.RegisterServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
