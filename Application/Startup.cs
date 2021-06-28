@@ -29,6 +29,9 @@ namespace Application
                 opt.Cookie.Name = ".cr.Session";
                 opt.Cookie.SameSite = SameSiteMode.Strict;
             });
+            services.AddMvc().AddJsonOptions(opt => {
+                opt.JsonSerializerOptions.PropertyNamingPolicy = null;
+            });
 
             // Services internal to this project from the services solution
             services.RegisterServices(Configuration);

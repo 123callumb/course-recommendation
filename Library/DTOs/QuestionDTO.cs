@@ -19,7 +19,7 @@ namespace Library.DTOs
             QuestionID = s.QuestionId,
             Text = s.Text,
             Order = s.Order,
-            //QuestionGroup = QuestionGroupDTO.MapEntityOverview.Compile().Invoke(s.Group)//,
+            QuestionGroup = s.GroupId.HasValue ? QuestionGroupDTO.MapEntityOverview.Compile().Invoke(s.Group) : null,
             Answers = s.QuestionAnswers.Select(s => s.Answer).AsQueryable().Select(AnswerDTO.MapEntity).ToList()
         };
     }
