@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="SPA\script\Components\" />
+    <Folder Include="SPA\script\Models\" />
     <Folder Include="SPA\style\" />
     <Folder Include="SPA\res\" />
   </ItemGroup>

@@ -97,6 +97,18 @@ eval("__webpack_require__(/*! ./script/Pages/RoutePage */ \"./SPA/script/Pages/R
 
 /***/ }),
 
+/***/ "./SPA/script/Pages/QuestionPage.tsx":
+/*!*******************************************!*\
+  !*** ./SPA/script/Pages/QuestionPage.tsx ***!
+  \*******************************************/
+/*! exports provided: QuestionPage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"QuestionPage\", function() { return QuestionPage; });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\nclass QuestionPage extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {\n  constructor(props) {\n    super(props);\n  }\n\n  render() {\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", null, \"This is the question page yeeee\"));\n  }\n\n}\n\n//# sourceURL=webpack:///./SPA/script/Pages/QuestionPage.tsx?");
+
+/***/ }),
+
 /***/ "./SPA/script/Pages/RoutePage.tsx":
 /*!****************************************!*\
   !*** ./SPA/script/Pages/RoutePage.tsx ***!
@@ -105,7 +117,43 @@ eval("__webpack_require__(/*! ./script/Pages/RoutePage */ \"./SPA/script/Pages/R
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var connected_react_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! connected-react-router */ \"./node_modules/connected-react-router/esm/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router */ \"./node_modules/react-router/esm/react-router.js\");\n\n\n\n\n\nclass AppRoute extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {\n  constructor(props) {\n    super(props);\n  }\n\n  render() {\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(connected_react_router__WEBPACK_IMPORTED_MODULE_0__[\"ConnectedRouter\"]\n    /*history={this.props.history}*/\n    , null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_3__[\"Switch\"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_3__[\"Route\"], {\n      exact: true\n      /*path={PageRoute.Welcome} component={WelcomePage}*/\n\n    })));\n  }\n\n}\n\nconst ApplicationRoot = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_2__[\"Provider\"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(AppRoute, {\n  history: AppHistory\n}));\n\n//# sourceURL=webpack:///./SPA/script/Pages/RoutePage.tsx?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var connected_react_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! connected-react-router */ \"./node_modules/connected-react-router/esm/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ \"./node_modules/react-redux/es/index.js\");\n/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router */ \"./node_modules/react-router/esm/react-router.js\");\n/* harmony import */ var _Store_Store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Store/Store */ \"./SPA/script/Store/Store.ts\");\n/* harmony import */ var _Services_RequestManager__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Services/RequestManager */ \"./SPA/script/Services/RequestManager.ts\");\n/* harmony import */ var _QuestionPage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./QuestionPage */ \"./SPA/script/Pages/QuestionPage.tsx\");\n\n\n\n\n\n\n\n\nclass AppRoute extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {\n  constructor(props) {\n    super(props);\n  }\n\n  render() {\n    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(connected_react_router__WEBPACK_IMPORTED_MODULE_0__[\"ConnectedRouter\"], {\n      history: this.props.history\n    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_3__[\"Switch\"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_3__[\"Route\"], {\n      exact: true,\n      path: _Services_RequestManager__WEBPACK_IMPORTED_MODULE_5__[\"PageRoute\"].Home,\n      component: _QuestionPage__WEBPACK_IMPORTED_MODULE_6__[\"QuestionPage\"]\n    })));\n  }\n\n}\n\nconst AppDataStore = Object(_Store_Store__WEBPACK_IMPORTED_MODULE_4__[\"DataStore\"])();\n\nconst ApplicationRoot = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_2__[\"Provider\"], {\n  store: AppDataStore\n}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(AppRoute, {\n  history: _Store_Store__WEBPACK_IMPORTED_MODULE_4__[\"AppHistory\"]\n}));\n\n//# sourceURL=webpack:///./SPA/script/Pages/RoutePage.tsx?");
+
+/***/ }),
+
+/***/ "./SPA/script/Services/RequestManager.ts":
+/*!***********************************************!*\
+  !*** ./SPA/script/Services/RequestManager.ts ***!
+  \***********************************************/
+/*! exports provided: default, RequestURL, PageRoute */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return RequestManager; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"RequestURL\", function() { return RequestURL; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"PageRoute\", function() { return PageRoute; });\nclass RequestManager {\n  static async MakeRequest(url, type = \"GET\", data, relative = true) {\n    try {\n      var _response$message;\n\n      let request = await fetch(relative ? url : `${location.origin}/${url}`, {\n        method: type,\n        headers: {\n          'Content-Type': 'application/json' // TODO: have custom ability here for req types like downloads etc :)\n\n        },\n        body: data != null ? JSON.stringify(data) : undefined\n      });\n      let response = await request.json();\n      if (response.success) return response;\n      throw \"Reponse success is false, server message: \" + ((_response$message = response === null || response === void 0 ? void 0 : response.message) !== null && _response$message !== void 0 ? _response$message : \"\");\n    } catch (e) {\n      return {\n        success: false,\n        message: e\n      };\n    }\n  }\n\n  static ChangeURL(url, callback) {\n    location.href = url;\n    if (callback) callback();\n  }\n\n}\nlet RequestURL;\n\n(function (RequestURL) {\n  RequestURL[\"Question_LoadAll\"] = \"Question/LoadAll\";\n})(RequestURL || (RequestURL = {}));\n\nlet PageRoute;\n\n(function (PageRoute) {\n  PageRoute[\"Home\"] = \"/\";\n  PageRoute[\"Recommendation\"] = \"/Recommendation\";\n})(PageRoute || (PageRoute = {}));\n\n//# sourceURL=webpack:///./SPA/script/Services/RequestManager.ts?");
+
+/***/ }),
+
+/***/ "./SPA/script/Store/Store.ts":
+/*!***********************************!*\
+  !*** ./SPA/script/Store/Store.ts ***!
+  \***********************************/
+/*! exports provided: AppHistory, DataStore */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"AppHistory\", function() { return AppHistory; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"DataStore\", function() { return DataStore; });\n/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! history */ \"./node_modules/history/esm/history.js\");\n/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ \"./node_modules/redux/es/redux.js\");\n/* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux-devtools-extension */ \"./node_modules/redux-devtools-extension/index.js\");\n/* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var connected_react_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! connected-react-router */ \"./node_modules/connected-react-router/esm/index.js\");\n/* harmony import */ var _reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./reducer */ \"./SPA/script/Store/reducer.ts\");\n\n\n\n\n\nconst AppHistory = Object(history__WEBPACK_IMPORTED_MODULE_0__[\"createBrowserHistory\"])();\nconst DataStore = preloadedState => Object(redux__WEBPACK_IMPORTED_MODULE_1__[\"createStore\"])(Object(_reducer__WEBPACK_IMPORTED_MODULE_4__[\"RootReducer\"])(AppHistory), preloadedState, Object(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_2__[\"composeWithDevTools\"])(Object(redux__WEBPACK_IMPORTED_MODULE_1__[\"applyMiddleware\"])(Object(connected_react_router__WEBPACK_IMPORTED_MODULE_3__[\"routerMiddleware\"])(AppHistory))));\n\n//# sourceURL=webpack:///./SPA/script/Store/Store.ts?");
+
+/***/ }),
+
+/***/ "./SPA/script/Store/reducer.ts":
+/*!*************************************!*\
+  !*** ./SPA/script/Store/reducer.ts ***!
+  \*************************************/
+/*! exports provided: RootReducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"RootReducer\", function() { return RootReducer; });\n/* harmony import */ var connected_react_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! connected-react-router */ \"./node_modules/connected-react-router/esm/index.js\");\n/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ \"./node_modules/redux/es/redux.js\");\n\n\nlet RootReducer = history => Object(redux__WEBPACK_IMPORTED_MODULE_1__[\"combineReducers\"])({\n  router: Object(connected_react_router__WEBPACK_IMPORTED_MODULE_0__[\"connectRouter\"])(history)\n});\n\n//# sourceURL=webpack:///./SPA/script/Store/reducer.ts?");
 
 /***/ }),
 
@@ -739,6 +787,18 @@ eval("/** @license React v16.14.0\n * react.development.js\n *\n * Copyright (c)
 
 "use strict";
 eval("\n\nif (false) {} else {\n  module.exports = __webpack_require__(/*! ./cjs/react.development.js */ \"./node_modules/react/cjs/react.development.js\");\n}\n\n\n//# sourceURL=webpack:///./node_modules/react/index.js?");
+
+/***/ }),
+
+/***/ "./node_modules/redux-devtools-extension/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/redux-devtools-extension/index.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nvar compose = __webpack_require__(/*! redux */ \"./node_modules/redux/es/redux.js\").compose;\n\nexports.__esModule = true;\nexports.composeWithDevTools =\n  typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__\n    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__\n    : function () {\n        if (arguments.length === 0) return undefined;\n        if (typeof arguments[0] === 'object') return compose;\n        return compose.apply(null, arguments);\n      };\n\nexports.devToolsEnhancer =\n  typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__\n    ? window.__REDUX_DEVTOOLS_EXTENSION__\n    : function () {\n        return function (noop) {\n          return noop;\n        };\n      };\n\n\n//# sourceURL=webpack:///./node_modules/redux-devtools-extension/index.js?");
 
 /***/ }),
 
