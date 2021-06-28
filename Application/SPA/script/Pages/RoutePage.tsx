@@ -6,6 +6,7 @@ import { AppHistory, DataStore } from "../Store/Store";
 import { History, LocationState } from "history";
 import { PageRoute } from "../Services/RequestManager";
 import { QuestionPage } from "./QuestionPage";
+import { render } from "react-dom";
 
 interface AppRoute_Props<S = LocationState> {
     history: History<S>;
@@ -34,3 +35,5 @@ const ApplicationRoot = () => (
         <AppRoute history={AppHistory} />
     </Provider>
 );
+
+render(<ApplicationRoot />, document.getElementById('root'));

@@ -20,6 +20,8 @@ namespace Library.EntityFramework.DbEntities
         public virtual DbSet<Answer> Answers { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<QuestionAnswer> QuestionAnswers { get; set; }
+        public virtual DbSet<QuestionGroup> QuestionGroups { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -39,25 +41,13 @@ namespace Library.EntityFramework.DbEntities
             {
                 entity.ToTable("answer");
 
-                entity.HasIndex(e => e.QuestionId, "FK_Question_Answer");
-
                 entity.Property(e => e.AnswerId)
                     .HasColumnType("int(11)")
                     .HasColumnName("AnswerID");
 
-                entity.Property(e => e.QuestionId)
-                    .HasColumnType("int(11)")
-                    .HasColumnName("QuestionID");
-
                 entity.Property(e => e.Text)
                     .IsRequired()
                     .HasMaxLength(2000);
-
-                entity.HasOne(d => d.Question)
-                    .WithMany(p => p.Answers)
-                    .HasForeignKey(d => d.QuestionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Question_Answer");
             });
 
             modelBuilder.Entity<Course>(entity =>
@@ -81,9 +71,68 @@ namespace Library.EntityFramework.DbEntities
             {
                 entity.ToTable("question");
 
+                entity.HasIndex(e => e.GroupId, "FK_Question_Group");
+
                 entity.Property(e => e.QuestionId)
                     .HasColumnType("int(11)")
                     .HasColumnName("QuestionID");
+
+                entity.Property(e => e.GroupId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("GroupID");
+
+                entity.Property(e => e.Order).HasColumnType("int(11)");
+
+                entity.Property(e => e.Text)
+                    .IsRequired()
+                    .HasMaxLength(2000);
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.Questions)
+                    .HasForeignKey(d => d.GroupId)
+                    .HasConstraintName("FK_Question_Group");
+            });
+
+            modelBuilder.Entity<QuestionAnswer>(entity =>
+            {
+                entity.ToTable("question_answer");
+
+                entity.HasIndex(e => e.AnswerId, "FK_Answer");
+
+                entity.HasIndex(e => e.QuestionId, "FK_Question");
+
+                entity.Property(e => e.QuestionAnswerId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("QuestionAnswerID");
+
+                entity.Property(e => e.AnswerId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("AnswerID");
+
+                entity.Property(e => e.QuestionId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("QuestionID");
+
+                entity.HasOne(d => d.Answer)
+                    .WithMany(p => p.QuestionAnswers)
+                    .HasForeignKey(d => d.AnswerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Answer");
+
+                entity.HasOne(d => d.Question)
+                    .WithMany(p => p.QuestionAnswers)
+                    .HasForeignKey(d => d.QuestionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Question");
+            });
+
+            modelBuilder.Entity<QuestionGroup>(entity =>
+            {
+                entity.ToTable("question_group");
+
+                entity.Property(e => e.QuestionGroupId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("QuestionGroupID");
 
                 entity.Property(e => e.Text)
                     .IsRequired()
