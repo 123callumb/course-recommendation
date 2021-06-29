@@ -6,6 +6,6 @@ namespace Services.QuestionManagement
 {
     public interface IQuestionManager
     {
-        Task<List<QuestionDTO>> LoadAll();
+        Task<List<SectionDTO>> LoadAll();
     }
 }

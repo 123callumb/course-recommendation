@@ -5,16 +5,19 @@ using System.Collections.Generic;
 
 namespace Library.EntityFramework.DbEntities
 {
-    public partial class QuestionGroup
+    public partial class Section
     {
-        public QuestionGroup()
+        public Section()
         {
+            Answers = new HashSet<Answer>();
             Questions = new HashSet<Question>();
         }
 
-        public int QuestionGroupId { get; set; }
+        public int SectionId { get; set; }
         public string Text { get; set; }
+        public int Order { get; set; }
 
+        public virtual ICollection<Answer> Answers { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
     }
 }

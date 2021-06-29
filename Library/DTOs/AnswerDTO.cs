@@ -8,11 +8,13 @@ namespace Library.DTOs
     {
         public int AnswerID { get; set; }
         public string Text { get; set; }
+        public int SectionID { get; set; }
 
         public static Expression<Func<Answer, AnswerDTO>> MapEntity = s => new AnswerDTO()
         {
             AnswerID = s.AnswerId,
-            Text = s.Text
+            Text = s.Text,
+            SectionID = s.SectionId
         };
     }
 }

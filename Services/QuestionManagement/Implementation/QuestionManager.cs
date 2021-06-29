@@ -14,9 +14,9 @@ namespace Services.QuestionManagement.Implementation
         {
             _genericQuerier = genericQuerier;
         }
-        public async Task<List<QuestionDTO>> LoadAll()
+        public async Task<List<SectionDTO>> LoadAll()
         {
-            return await _genericQuerier.Load(QuestionDTO.MapEntity).ToListAsync();
+            return await _genericQuerier.Load(SectionDTO.MapEntity).ToListAsync();
         }
     }
 }
