@@ -12,9 +12,9 @@ module.exports = {
         filename: "course-recommend.bundle.js"
     },
     plugins: [
-        new CopyPlugin([
-            { from: __dirname + "/SPA/res", to: __dirname + "/wwwroot/direct" }
-        ])
+        //new CopyPlugin([ not needed for now - also neesds updating to the new format 
+        //    { from: __dirname + "/SPA/res", to: __dirname + "/wwwroot/direct" }
+        //])
     ],
     module: {
         rules: [

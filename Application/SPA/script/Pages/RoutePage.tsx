@@ -7,6 +7,7 @@ import { History, LocationState } from "history";
 import { PageRoute } from "../Services/RequestManager";
 import { QuestionPage } from "./QuestionPage";
 import { render } from "react-dom";
+import { ChakraProvider } from "@chakra-ui/react";
 
 interface AppRoute_Props<S = LocationState> {
     history: History<S>;
@@ -31,9 +32,11 @@ class AppRoute extends React.Component<AppRoute_Props> {
 const AppDataStore = DataStore();
 
 const ApplicationRoot = () => (
-    <Provider store={AppDataStore}>
-        <AppRoute history={AppHistory} />
-    </Provider>
+    <ChakraProvider>
+        <Provider store={AppDataStore}>
+            <AppRoute history={AppHistory} />
+        </Provider>
+    </ChakraProvider>
 );
 
 render(<ApplicationRoot />, document.getElementById('root'));
