@@ -106,15 +106,25 @@ __webpack_require__(/*! ./script/Pages/RoutePage */ "./SPA/script/Pages/RoutePag
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return MultiRadioQuestion_Comp; });
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _Store_AnswerStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Store/AnswerStore */ "./SPA/script/Store/AnswerStore.ts");
+
+
+
 
 
 class MultiRadioQuestion_Comp extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
   constructor(props) {
     super(props);
+  }
+
+  GetAnswerForQuestion(questionID) {
+    var _this$props$answerSet;
+
+    return (_this$props$answerSet = this.props.answerSet.find(f => f.QuestionID === questionID)) === null || _this$props$answerSet === void 0 ? void 0 : _this$props$answerSet.AnswerID.toString();
   }
 
   render() {
@@ -128,7 +138,9 @@ class MultiRadioQuestion_Comp extends react__WEBPACK_IMPORTED_MODULE_1___default
       textAlign: "center"
     }, e.Text))), this.props.questions.map((e, i) => {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["RadioGroup"], {
-        key: i
+        key: i,
+        value: this.GetAnswerForQuestion(e.QuestionID),
+        onChange: newVal => this.props.SetAnswerSet(this.props.sectionID, parseInt(newVal), e.QuestionID)
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["SimpleGrid"], {
         columns: ansCount + 1
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Box"], null, e.Text), this.props.answers.map((r, ind) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Box"], {
@@ -137,12 +149,17 @@ class MultiRadioQuestion_Comp extends react__WEBPACK_IMPORTED_MODULE_1___default
         pt: "4"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Radio"], {
         size: "md",
-        value: r.AnswerID
+        value: r.AnswerID.toString()
       })))));
     }));
   }
 
 }
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])((state, props) => ({ ...props
+}), {
+  SetAnswerSet: _Store_AnswerStore__WEBPACK_IMPORTED_MODULE_3__["SetAnswerSet"]
+})(MultiRadioQuestion_Comp));
 
 /***/ }),
 
