@@ -16,13 +16,13 @@ export default class Section_Comp extends React.Component<Section> {
         return <>
             <SimpleGrid mt="3" columns={ansCount + 1}>
                 <Box />
-                {this.props.Answers.map((e, i) => <Box key={i}>{e.Text}</Box>)}
+                {this.props.Answers.map((e, i) => <Box key={i} textAlign="center">{e.Text}</Box>)}
             </SimpleGrid>
             {this.props.Questions.map((e, i) => {
-                return <RadioGroup>
+                return <RadioGroup key={i}>
                     <SimpleGrid columns={ansCount + 1}>
-                        <Box key={i}>{e.Text}</Box>
-                        {this.props.Answers.map((r, ind) => <Box key={ind + "" + i}><Radio size="md" value={r.AnswerID} /></Box>)}
+                        <Box >{e.Text}</Box>
+                        {this.props.Answers.map((r, ind) => <Box key={ind + "" + i} textAlign="center" pt="4"><Radio size="md" value={r.AnswerID} /></Box>)}
                     </SimpleGrid>
                 </RadioGroup>
             })}
