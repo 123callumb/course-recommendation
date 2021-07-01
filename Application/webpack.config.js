@@ -1,8 +1,10 @@
-﻿const path = require('path');
+﻿/// <binding ProjectOpened='Watch - Development' />
+const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: __dirname + '/SPA/App.ts',
+    devtool: 'source-map',
     mode: "development",
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".jsx", ".css", ".scss"]

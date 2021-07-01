@@ -5,7 +5,7 @@ import { Route, Switch } from "react-router";
 import { AppHistory, DataStore } from "../Store/Store";
 import { History, LocationState } from "history";
 import { PageRoute } from "../Services/RequestManager";
-import { QuestionPage } from "./QuestionPage";
+import QuestionPage from "./QuestionPage";
 import { render } from "react-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 

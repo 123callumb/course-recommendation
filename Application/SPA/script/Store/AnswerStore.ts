@@ -23,7 +23,7 @@ export function SetAnswerSet(sectionID: number, answerID: number, questionID: nu
 }
 
 
-export function AnswersReducer(state: AnswerSet[], action: AnswersSetAction) {
+export function AnswersReducer(state: AnswerSet[] = [], action: AnswersSetAction) {
     switch (action.type) {
         case Answers_Set_Action:
             const toSet = action.payload;
