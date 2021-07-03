@@ -11,6 +11,7 @@ namespace Library.EntityFramework.DbEntities
         {
             Answers = new HashSet<Answer>();
             Questions = new HashSet<Question>();
+            SessionAnswers = new HashSet<SessionAnswer>();
         }
 
         public int SectionId { get; set; }
@@ -19,5 +20,6 @@ namespace Library.EntityFramework.DbEntities
 
         public virtual ICollection<Answer> Answers { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
+        public virtual ICollection<SessionAnswer> SessionAnswers { get; set; }
     }
 }

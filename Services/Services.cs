@@ -7,6 +7,8 @@ using Services.GenericRepository;
 using Services.GenericRepository.Implementation;
 using Services.QuestionManagement;
 using Services.QuestionManagement.Implementation;
+using Services.SessionManagement;
+using Services.SessionManagement.Implementation;
 
 namespace Services
 {
@@ -18,6 +20,7 @@ namespace Services
             services.AddScoped<IGenericQuerier, GenericQuerier>();
             services.AddScoped<IGenericRepo, GenericRepo>();
             services.AddScoped<IQuestionManager, QuestionManager>();
+            services.AddScoped<ISessionManager, SessionManager>();
         }
     }
 }

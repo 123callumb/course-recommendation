@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Services.QuestionManagement;
+using Services.SessionManagement;
 using System;
 using System.Threading.Tasks;
 
 namespace Application.Controllers
 {
-    public class QuestionController : Controller
+    public class QuestionController : BaseController
     {
         private readonly IQuestionManager _questionManager;
-        public QuestionController(IQuestionManager questionManager)
+        public QuestionController(IQuestionManager questionManager, ISessionManager sessionManager) : base(sessionManager)
         {
             _questionManager = questionManager;
         }
@@ -19,6 +20,7 @@ namespace Application.Controllers
             try
             {
                 var questions = await _questionManager.LoadAll();
+                var existingSessionAnswers = await GetUserSession();
                 return new JsonResult(new { success = true, data = questions });
             }
             catch (Exception e)

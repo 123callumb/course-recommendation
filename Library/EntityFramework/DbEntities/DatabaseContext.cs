@@ -21,6 +21,8 @@ namespace Library.EntityFramework.DbEntities
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Section> Sections { get; set; }
+        public virtual DbSet<Session> Sessions { get; set; }
+        public virtual DbSet<SessionAnswer> SessionAnswers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -126,6 +128,75 @@ namespace Library.EntityFramework.DbEntities
                 entity.Property(e => e.Text)
                     .IsRequired()
                     .HasMaxLength(2000);
+            });
+
+            modelBuilder.Entity<Session>(entity =>
+            {
+                entity.ToTable("session");
+
+                entity.Property(e => e.SessionId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("SessionID");
+
+                entity.Property(e => e.DateCreated)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("current_timestamp()");
+            });
+
+            modelBuilder.Entity<SessionAnswer>(entity =>
+            {
+                entity.ToTable("session_answer");
+
+                entity.HasIndex(e => e.SessionId, "FK_Session");
+
+                entity.HasIndex(e => e.AnswerId, "FK_Session_Answer");
+
+                entity.HasIndex(e => e.QuestionId, "FK_Session_Question");
+
+                entity.HasIndex(e => e.SectionId, "FK_Session_Section");
+
+                entity.Property(e => e.SessionAnswerId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("SessionAnswerID");
+
+                entity.Property(e => e.AnswerId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("AnswerID");
+
+                entity.Property(e => e.QuestionId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("QuestionID");
+
+                entity.Property(e => e.SectionId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("SectionID");
+
+                entity.Property(e => e.SessionId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("SessionID");
+
+                entity.HasOne(d => d.Answer)
+                    .WithMany(p => p.SessionAnswers)
+                    .HasForeignKey(d => d.AnswerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Session_Answer");
+
+                entity.HasOne(d => d.Question)
+                    .WithMany(p => p.SessionAnswers)
+                    .HasForeignKey(d => d.QuestionId)
+                    .HasConstraintName("FK_Session_Question");
+
+                entity.HasOne(d => d.Section)
+                    .WithMany(p => p.SessionAnswers)
+                    .HasForeignKey(d => d.SectionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Session_Section");
+
+                entity.HasOne(d => d.Session)
+                    .WithMany(p => p.SessionAnswers)
+                    .HasForeignKey(d => d.SessionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Session");
             });
 
             OnModelCreatingPartial(modelBuilder);
