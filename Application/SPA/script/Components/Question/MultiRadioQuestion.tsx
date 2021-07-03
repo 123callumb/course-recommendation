@@ -11,7 +11,7 @@ interface MultiRadioComp_Props {
     answers: Answer[];
     questions: Question[];
     answerSet: AnswerSet[];
-    SetAnswerSet: typeof SetAnswerSet;
+    SetAnswerSet?: typeof SetAnswerSet;
 }
 
 class MultiRadioQuestion_Comp extends React.Component<MultiRadioComp_Props> {

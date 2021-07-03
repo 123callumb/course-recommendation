@@ -1,4 +1,5 @@
-﻿import { Container } from "@chakra-ui/react";
+﻿import { ArrowBackIcon, ArrowForwardIcon, StarIcon } from "@chakra-ui/icons";
+import { Box, Button, Container, Progress, Text } from "@chakra-ui/react";
 import React from "react";
 import { connect } from "react-redux";
 import Section_Comp from "../Components/Section/Section_Comp";
@@ -13,6 +14,7 @@ interface QuestionPage_Props {
 
 interface QuestionPage_State {
     Sections: Section[];
+    SectionPosition: number;
 }
 
 class QuestionPage_Comp extends React.Component<QuestionPage_Props, QuestionPage_State> {
@@ -20,7 +22,8 @@ class QuestionPage_Comp extends React.Component<QuestionPage_Props, QuestionPage
         super(props);
 
         this.state = {
-            Sections: []
+            Sections: [],
+            SectionPosition: 0
         };
 
         this.LoadQuestions();
@@ -36,13 +39,35 @@ class QuestionPage_Comp extends React.Component<QuestionPage_Props, QuestionPage
         }
     }
 
-    GetSectionAnswerSet(sectionID: number) {
+    GetCurrentSection() {
+        return this.state.Sections[this.state.SectionPosition];
+    }
+
+    GetSectionAnswerSet() {
+        const sectionID = this.GetCurrentSection().SectionID;
         return this.props.AnswerSet.filter(f => f.SectionID === sectionID);
     }
 
     render() {
         return (<Container maxW="container.md">
-            {this.state.Sections.map(e => <Section_Comp key={e.SectionID} section={e} sectionAnswers={this.GetSectionAnswerSet(e.SectionID)}  />)}
+            <Text size="md">Question progress:</Text>
+            <Progress value={((this.state.SectionPosition + 1) / this.state.Sections.length) * 100} />
+            {
+                this.state.Sections.length === 0 ? <Box boxShadow="xs" p="4" mt="4">
+                    <Text size="l" mb="2">Loading Questions...</Text>
+                    <Progress size="xs" isIndeterminate />
+                </Box>
+                    :
+                    <Section_Comp section={this.GetCurrentSection()} sectionAnswers={this.GetSectionAnswerSet()} />
+            }
+            <Box mt="4">
+                {this.state.SectionPosition > 0 ? <Button colorScheme="teal" onClick={() => this.setState({ SectionPosition: this.state.SectionPosition - 1 })} leftIcon={<ArrowBackIcon />}>Previous Question</Button> : null}
+                {this.state.SectionPosition === (this.state.Sections.length - 1) ?
+                    <Button float="right" colorScheme="teal" rightIcon={<StarIcon />}>View Recommendation</Button>
+                    :
+                    <Button float="right" colorScheme="teal" onClick={() => this.setState({ SectionPosition: this.state.SectionPosition + 1 })} rightIcon={<ArrowForwardIcon />}>Next Question</Button>
+                }
+            </Box>
         </Container>)
     }
 }
