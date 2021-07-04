@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Library.Models.Requests;
+using Library.Models.Responses;
+using Microsoft.AspNetCore.Mvc;
 using Services.AnswerSetManagement;
 using Services.RecommendationManagement;
 using Services.SessionManagement;
@@ -17,19 +19,23 @@ namespace Application.Controllers
             _recommendationManager = recommendationManager;
         }
 
-        [HttpGet]
-        public async Task<JsonResult> GetRecommendation()
+        [HttpPost]
+        public async Task<JsonResult> GetRecommendation([FromBody] CourseRecommendationRequest request)
         {
             try
             {
-                int sessionID = await _answerSetManager.SaveSessionAnswers();
+                var sessionID = request?.SessionID ?? 0;
 
-                if(sessionID < 1)
+                if (sessionID < 1)
+                    sessionID = await _answerSetManager.SaveSessionAnswers();
+
+                if (sessionID < 1)
                     return new JsonResult(new { success = false, message = "Failed to get recommendation." });
 
                 var course = await _recommendationManager.RecommendCourse(sessionID);
+                var viewModel = new CourseRecommendationResponse(sessionID, course);
 
-                return new JsonResult(new { success = true, data = course });
+                return new JsonResult(new { success = true, data = viewModel });
 
             }
             catch (Exception e)

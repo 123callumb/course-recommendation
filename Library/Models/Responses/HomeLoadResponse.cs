@@ -1,7 +1,7 @@
 ﻿using Library.DTOs;
 using System.Collections.Generic;
 
-namespace Library.Models.Home.Responses
+namespace Library.Models.Responses
 {
     public class HomeLoadResponse
     {

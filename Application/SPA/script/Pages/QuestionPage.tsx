@@ -28,6 +28,10 @@ class QuestionPage_Comp extends React.Component<QuestionPage_Props, QuestionPage
             SectionPosition: 0
         };
 
+        // TODO: find a nicer way to reset the session storage, this is just for people 
+        // whom feel the need  to refresh the page on the recommendation page.
+        // Probably add it to the session storage on server...
+        sessionStorage['recommendation_session'] = undefined;
         this.LoadQuestions();
     }
 

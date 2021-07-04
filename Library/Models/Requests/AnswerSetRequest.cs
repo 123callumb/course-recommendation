@@ -1,4 +1,4 @@
-﻿namespace Library.Models.AnswerSet.Requests
+﻿namespace Library.Models.Requests
 {
     public class AnswerSetRequest
     {

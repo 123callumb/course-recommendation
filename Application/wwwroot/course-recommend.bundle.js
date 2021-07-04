@@ -310,7 +310,11 @@ class QuestionPage_Comp extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Com
     this.state = {
       Sections: [],
       SectionPosition: 0
-    };
+    }; // TODO: find a nicer way to reset the session storage, this is just for people 
+    // whom feel the need  to refresh the page on the recommendation page.
+    // Probably add it to the session storage on server...
+
+    sessionStorage['recommendation_session'] = undefined;
     this.LoadQuestions();
   }
 
@@ -405,35 +409,76 @@ class QuestionPage_Comp extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Com
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return RecommendationPage_Comp; });
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _chakra_ui_icons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @chakra-ui/icons */ "./node_modules/@chakra-ui/icons/dist/esm/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Services_RequestManager__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Services/RequestManager */ "./SPA/script/Services/RequestManager.ts");
 
 
-class RecommendationPage_Comp extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
+
+
+class RecommendationPage_Comp extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      RecommendedCourse: null
+    };
+    this.GenerateRecommendation();
   }
 
-  GenerateRecommendation() {}
+  async GenerateRecommendation() {
+    var _sessionStorage$recom;
+
+    const currentSessionID = (_sessionStorage$recom = sessionStorage['recommendation_session']) !== null && _sessionStorage$recom !== void 0 ? _sessionStorage$recom : "0";
+    const res = await _Services_RequestManager__WEBPACK_IMPORTED_MODULE_3__["default"].MakeRequest(_Services_RequestManager__WEBPACK_IMPORTED_MODULE_3__["RequestURL"].Recommendation_Get, "POST", {
+      SessionID: parseInt(currentSessionID)
+    });
+
+    if (res.success) {
+      sessionStorage['recommendation_session'] = res.data.SessionID;
+      this.setState({
+        RecommendedCourse: res.data.RecommendedCourse
+      });
+    }
+  }
 
   render() {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Container"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Container"], {
       maxW: "container.md",
       pt: "4"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Box"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
       boxShadow: "md",
       p: "2"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Text"], {
-      fontSize: "lg"
-    }, "Course Recommendation"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Divider"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Heading"], {
+      size: "md"
+    }, "Course Recommendation"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Divider"], {
       my: "2"
-    }), true ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Text"], {
+    }), this.state.RecommendedCourse === null ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Text"], {
       fontSize: "sm"
-    }, "Generating recommendations based on your answers..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Progress"], {
+    }, "Generating recommendations based on your answers..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Progress"], {
       isIndeterminate: true,
       size: "xs"
-    })) : /*#__PURE__*/undefined));
+    })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Text"], {
+      fontSize: "md"
+    }, "Base on your answers, to improve your digital skills further you should consider taking the following course:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Container"], {
+      maxW: "container.sm",
+      my: "6"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
+      borderWidth: "1px",
+      borderRadius: "lg",
+      p: "4"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Heading"], {
+      size: "sm",
+      mb: "2"
+    }, this.state.RecommendedCourse.Name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Text"], null, this.state.RecommendedCourse.Description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
+      textAlign: "center",
+      mt: "4"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+      colorScheme: "teal",
+      href: "#",
+      leftIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_icons__WEBPACK_IMPORTED_MODULE_0__["ArrowRightIcon"], null)
+    }, "Sign up to Course")))))));
   }
 
 }
@@ -551,6 +596,7 @@ let RequestURL;
 (function (RequestURL) {
   RequestURL["Home_Load"] = "Home/Load";
   RequestURL["AnswerSet_RegisterSessionAnswer"] = "AnswerSet/RegisterSessionAnswer";
+  RequestURL["Recommendation_Get"] = "Recommendation/GetRecommendation";
 })(RequestURL || (RequestURL = {}));
 
 let PageRoute;
