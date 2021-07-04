@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import Section_Comp from "../Components/Section/Section_Comp";
 import HomeLoadResponse from "../Models/Responses/HomeLoadResponse";
 import Section from "../Models/Section";
-import RequestManager, { RequestURL } from "../Services/RequestManager";
+import RequestManager, { PageRoute, RequestURL } from "../Services/RequestManager";
 import { AnswerSet, SetAnswerSetState } from "../Store/AnswerStore";
 import { AppState } from "../Store/reducer";
 
@@ -70,7 +70,11 @@ class QuestionPage_Comp extends React.Component<QuestionPage_Props, QuestionPage
                         {this.state.SectionPosition > 0 ? <Button float="left" colorScheme="teal" onClick={() => this.setState({ SectionPosition: this.state.SectionPosition - 1 })} leftIcon={<ArrowBackIcon />}>Previous</Button> : null}
                         <Box textAlign="right">
                             {this.state.SectionPosition === (this.state.Sections.length - 1) ?
-                                <Button colorScheme="linkedin" rightIcon={<StarIcon />}>Submit</Button>
+                                <Button
+                                    colorScheme="linkedin"
+                                    rightIcon={<StarIcon />}
+                                    onClick={() => RequestManager.ChangeURL(PageRoute.Recommendation)}
+                                >Submit</Button>
                                 :
                                 <Button colorScheme="teal" onClick={() => this.setState({ SectionPosition: this.state.SectionPosition + 1 })} rightIcon={<ArrowForwardIcon />}>Next</Button>
                             }

@@ -374,7 +374,8 @@ class QuestionPage_Comp extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Com
       textAlign: "right"
     }, this.state.SectionPosition === this.state.Sections.length - 1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Button"], {
       colorScheme: "linkedin",
-      rightIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_icons__WEBPACK_IMPORTED_MODULE_0__["StarIcon"], null)
+      rightIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_icons__WEBPACK_IMPORTED_MODULE_0__["StarIcon"], null),
+      onClick: () => _Services_RequestManager__WEBPACK_IMPORTED_MODULE_5__["default"].ChangeURL(_Services_RequestManager__WEBPACK_IMPORTED_MODULE_5__["PageRoute"].Recommendation)
     }, "Submit") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Button"], {
       colorScheme: "teal",
       onClick: () => this.setState({
@@ -391,6 +392,51 @@ class QuestionPage_Comp extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Com
 }), {
   SetAnswerSetState: _Store_AnswerStore__WEBPACK_IMPORTED_MODULE_6__["SetAnswerSetState"]
 })(QuestionPage_Comp));
+
+/***/ }),
+
+/***/ "./SPA/script/Pages/RecommendationPage.tsx":
+/*!*************************************************!*\
+  !*** ./SPA/script/Pages/RecommendationPage.tsx ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return RecommendationPage_Comp; });
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+class RecommendationPage_Comp extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  GenerateRecommendation() {}
+
+  render() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Container"], {
+      maxW: "container.md",
+      pt: "4"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Box"], {
+      boxShadow: "md",
+      p: "2"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Text"], {
+      fontSize: "lg"
+    }, "Course Recommendation"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Divider"], {
+      my: "2"
+    }), true ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Text"], {
+      fontSize: "sm"
+    }, "Generating recommendations based on your answers..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Progress"], {
+      isIndeterminate: true,
+      size: "xs"
+    })) : /*#__PURE__*/undefined));
+  }
+
+}
 
 /***/ }),
 
@@ -414,6 +460,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/index.js");
+/* harmony import */ var _RecommendationPage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./RecommendationPage */ "./SPA/script/Pages/RecommendationPage.tsx");
+
 
 
 
@@ -436,6 +484,9 @@ class AppRoute extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
       exact: true,
       path: _Services_RequestManager__WEBPACK_IMPORTED_MODULE_5__["PageRoute"].Home,
       component: _QuestionPage__WEBPACK_IMPORTED_MODULE_6__["default"]
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_3__["Route"], {
+      path: _Services_RequestManager__WEBPACK_IMPORTED_MODULE_5__["PageRoute"].Recommendation,
+      component: _RecommendationPage__WEBPACK_IMPORTED_MODULE_9__["default"]
     })));
   }
 
