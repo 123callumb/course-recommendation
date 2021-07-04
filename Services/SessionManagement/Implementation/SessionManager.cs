@@ -32,7 +32,7 @@ namespace Services.SessionManagement.Implementation
 
             if (userSessionToken == null)
             {
-                userSessionToken =  CreateUnsavedUserSession();
+                userSessionToken = CreateUnsavedUserSession();
                 session.Set(SessionKeys.UserSession, userSessionToken);
             }
 
@@ -112,6 +112,23 @@ namespace Services.SessionManagement.Implementation
             if (_memoryCache.TryGetValue(CacheKeys.AllSessionCodes, out List<string> unsavedSessionCodes))
                 return unsavedSessionCodes.Contains(sessionCode);
             return false;
+        }
+
+        public void ClearUserSession()
+        {
+            string sessionCode = GetUserSessionCode();
+            _memoryCache.Remove(CacheKeys.UserSession(sessionCode));
+
+            if (_memoryCache.TryGetValue(CacheKeys.AllSessionCodes, out List<string> currentSessions))
+            {
+                string code = currentSessions.FirstOrDefault(f => f == sessionCode);
+
+                if (code != null)
+                {
+                    currentSessions.Remove(sessionCode);
+                    _memoryCache.Set(CacheKeys.AllSessionCodes, currentSessions);
+                }
+            }
         }
     }
 }

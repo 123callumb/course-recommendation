@@ -9,6 +9,8 @@ using Services.GenericRepository;
 using Services.GenericRepository.Implementation;
 using Services.QuestionManagement;
 using Services.QuestionManagement.Implementation;
+using Services.RecommendationManagement;
+using Services.RecommendationManagement.Implementation;
 using Services.SessionManagement;
 using Services.SessionManagement.Implementation;
 
@@ -24,6 +26,7 @@ namespace Services
             services.AddScoped<IQuestionManager, QuestionManager>();
             services.AddScoped<ISessionManager, SessionManager>();
             services.AddScoped<IAnswerSetManager, AnswerSetManager>();
+            services.AddScoped<IRecommendationManager, RecommendationManager>();
         }
     }
 }

@@ -18,5 +18,12 @@ namespace Library.DTOs
             AnswerID = s.AnswerId,
             QuestionID = s.QuestionId
         };
+
+        public static Expression<Func<SessionAnswerDTO, SessionAnswer>> ToEntity = s => new SessionAnswer()
+        {
+            SectionId = s.SectionID,
+            AnswerId = s.AnswerID,
+            QuestionId = s.QuestionID
+        };
     }
 }

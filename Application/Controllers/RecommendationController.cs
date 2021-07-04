@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Services.AnswerSetManagement;
+using Services.RecommendationManagement;
 using Services.SessionManagement;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Application.Controllers
@@ -11,9 +10,11 @@ namespace Application.Controllers
     public class RecommendationController : BaseController
     {
         private readonly IAnswerSetManager _answerSetManager;
-        public RecommendationController(ISessionManager sessionManager, IAnswerSetManager answerSetManager) : base(sessionManager)
+        private readonly IRecommendationManager _recommendationManager;
+        public RecommendationController(ISessionManager sessionManager, IAnswerSetManager answerSetManager, IRecommendationManager recommendationManager) : base(sessionManager)
         {
             _answerSetManager = answerSetManager;
+            _recommendationManager = recommendationManager;
         }
 
         [HttpGet]
@@ -21,12 +22,19 @@ namespace Application.Controllers
         {
             try
             {
-                return new JsonResult(new { success = true });
+                int sessionID = await _answerSetManager.SaveSessionAnswers();
+
+                if(sessionID < 1)
+                    return new JsonResult(new { success = false, message = "Failed to get recommendation." });
+
+                var course = await _recommendationManager.RecommendCourse(sessionID);
+
+                return new JsonResult(new { success = true, data = course });
 
             }
             catch (Exception e)
             {
-                return new JsonResult(new { success = false, message = "Failed to get recommendation" });
+                return new JsonResult(new { success = false, message = "Failed to get recommendation." });
             }
         }
     }

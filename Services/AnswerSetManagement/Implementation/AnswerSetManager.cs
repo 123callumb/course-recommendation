@@ -1,4 +1,5 @@
 ﻿using Library.DTOs;
+using Library.EntityFramework.DbEntities;
 using Library.Models.Cache;
 using Microsoft.Extensions.Caching.Memory;
 using Services.GenericRepository;
@@ -47,9 +48,23 @@ namespace Services.AnswerSetManagement.Implementation
             _memoryCache.Set(CacheKeys.UserSession(sessionCode), existingAnswers);
         }
 
-        public async Task<bool> SaveAnswerSet()
+        public async Task<int> SaveSessionAnswers()
         {
-            throw new NotImplementedException();
+            var currentSession = _sessionManager.GetOrSetSession();
+
+            if (!currentSession.AnswerSet.Any())
+                throw new Exception("There are no answer sets to save.");
+
+            // TODO: do a check here to make sure all questions that have a required tag have been answered
+            Session newSession = new Session()
+            {
+                SessionAnswers = currentSession.AnswerSet.AsQueryable().Select(SessionAnswerDTO.ToEntity).ToList()
+            };
+
+            if (await _genericRepo.Add(newSession) < 1)
+                throw new Exception("Failed to save session answers.");
+
+            return newSession.SessionId;
         }
     }
 }

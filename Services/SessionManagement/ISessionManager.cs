@@ -6,5 +6,6 @@ namespace Services.SessionManagement
     {
         UnsavedUserSession GetOrSetSession();
         string GetUserSessionCode();
+        void ClearUserSession();
     }
 }
