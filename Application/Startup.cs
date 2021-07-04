@@ -24,6 +24,7 @@ namespace Application
 
             services.AddControllersWithViews();
             services.AddMemoryCache();
+            services.AddHttpContextAccessor();
             services.AddSession(opt =>
             {
                 opt.Cookie.Name = ".cr.Session";
@@ -32,7 +33,6 @@ namespace Application
             services.AddMvc().AddJsonOptions(opt => {
                 opt.JsonSerializerOptions.PropertyNamingPolicy = null;
             });
-
             // Services internal to this project from the services solution
             services.RegisterServices(Configuration);
         }

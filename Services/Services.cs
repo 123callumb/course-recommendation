@@ -3,6 +3,8 @@ using Library.EntityFramework.DbEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Services.AnswerSetManagement;
+using Services.AnswerSetManagement.Implementation;
 using Services.GenericRepository;
 using Services.GenericRepository.Implementation;
 using Services.QuestionManagement;
@@ -21,6 +23,7 @@ namespace Services
             services.AddScoped<IGenericRepo, GenericRepo>();
             services.AddScoped<IQuestionManager, QuestionManager>();
             services.AddScoped<ISessionManager, SessionManager>();
+            services.AddScoped<IAnswerSetManager, AnswerSetManager>();
         }
     }
 }

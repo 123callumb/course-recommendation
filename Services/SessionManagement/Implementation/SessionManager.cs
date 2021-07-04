@@ -1,58 +1,63 @@
 ﻿using Library.DTOs;
-using Library.EntityFramework.DbEntities;
+using Library.Models.Cache;
 using Library.Models.Session;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
-using Services.GenericRepository;
 using Services.SessionManagement.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.SessionManagement.Implementation
 {
     public class SessionManager : ISessionManager
     {
-        private readonly IGenericRepo _genericRepo;
-        private readonly IGenericQuerier _genericQuerier;
         private readonly HttpContext _context;
+        private readonly IMemoryCache _memoryCache;
 
-        public SessionManager(IHttpContextAccessor contextAccessor, IGenericRepo genericRepo, IGenericQuerier genericQuerier)
+        public SessionManager(IHttpContextAccessor contextAccessor, IMemoryCache memoryCache)
         {
             _context = contextAccessor.HttpContext;
-            _genericRepo = genericRepo;
-            _genericQuerier = genericQuerier;
+            _memoryCache = memoryCache;
         }
 
-        public async Task<UserSession> GetOrSetSession()
+        public UnsavedUserSession GetOrSetSession()
         {
             var session = _context.Session;
             string userSessionToken = session.Get<string>(SessionKeys.UserSession);
 
             if (userSessionToken == null)
             {
-                userSessionToken = await CreateUserSession();
+                userSessionToken =  CreateUnsavedUserSession();
                 session.Set(SessionKeys.UserSession, userSessionToken);
             }
 
-            int sessionID = GetUserSessionID(userSessionToken);
-            var answerSets = await _genericQuerier.Load(SessionAnswerDTO.MapEntity, w => w.SessionId == sessionID).ToListAsync();
+            string sessionCode = GetUserSessionIDFromToken(userSessionToken);
+            List<SessionAnswerDTO> existingSessionAnswers = new List<SessionAnswerDTO>();
 
-            return new UserSession
+            if (_memoryCache.TryGetValue(CacheKeys.UserSession(sessionCode), out List<SessionAnswerDTO> answerSets))
+                existingSessionAnswers = answerSets;
+
+            return new UnsavedUserSession
             {
-                SessionID = sessionID,
-                AnswerSet = answerSets
+                SessionCode = sessionCode,
+                AnswerSet = existingSessionAnswers
             };
         }
 
-        private async Task<string> CreateUserSession()
+        private string CreateUnsavedUserSession()
         {
-            Session newSession = new Session();
-            await _genericRepo.Add(newSession);
+            string sessionCode = CreateUnsavedSessionCode();
+            List<string> currentSessionCodes = new List<string>() { sessionCode };
+
+            if (_memoryCache.TryGetValue(CacheKeys.AllSessionCodes, out List<string> existingCodes))
+                currentSessionCodes.Concat(existingCodes);
+
+            _memoryCache.Set(CacheKeys.AllSessionCodes, currentSessionCodes);
 
             // Throw this key in db, or maybe app settings
             var key = Encoding.ASCII.GetBytes("FEFwdwefefHJUkdgvSBTynkfegHdFWEPOfhGsfwdaeqwfhtibddfHRTUYhdgewEWfDw");
@@ -60,7 +65,7 @@ namespace Services.SessionManagement.Implementation
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(SessionKeys.Claim_UserSession, newSession.SessionId.ToString())
+                    new Claim(SessionKeys.Claim_UserSession, sessionCode)
                 }),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
@@ -71,11 +76,42 @@ namespace Services.SessionManagement.Implementation
             return tokenHandler.WriteToken(token);
         }
 
-        private int GetUserSessionID(string token)
+        private string GetUserSessionIDFromToken(string token)
         {
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             Claim sessionIDClaim = tokenHandler.ReadJwtToken(token).Claims.FirstOrDefault(f => f.Type == SessionKeys.Claim_UserSession);
-            return int.Parse(sessionIDClaim.Value);
+            return sessionIDClaim.Value;
+        }
+
+        public string GetUserSessionCode()
+        {
+            var session = _context.Session;
+            string userSessionToken = session.Get<string>(SessionKeys.UserSession);
+
+            if (userSessionToken == null)
+                throw new Exception("Could not get user session ID as it has not been set.");
+
+            return GetUserSessionIDFromToken(userSessionToken);
+        }
+
+        private string CreateUnsavedSessionCode()
+        {
+            Random rand = new Random();
+            string newSessionCode;
+
+            do
+            {
+                newSessionCode = new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 6).Select(s => s[rand.Next(s.Length)]).ToArray());
+            } while (SesionCodeExists(newSessionCode));
+
+            return newSessionCode;
+        }
+
+        private bool SesionCodeExists(string sessionCode)
+        {
+            if (_memoryCache.TryGetValue(CacheKeys.AllSessionCodes, out List<string> unsavedSessionCodes))
+                return unsavedSessionCodes.Contains(sessionCode);
+            return false;
         }
     }
 }

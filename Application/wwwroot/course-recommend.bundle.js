@@ -310,7 +310,7 @@ class QuestionPage_Comp extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Com
   }
 
   async LoadQuestions() {
-    const res = await _Services_RequestManager__WEBPACK_IMPORTED_MODULE_5__["default"].MakeRequest(_Services_RequestManager__WEBPACK_IMPORTED_MODULE_5__["RequestURL"].Question_LoadAll, "GET", null, true);
+    const res = await _Services_RequestManager__WEBPACK_IMPORTED_MODULE_5__["default"].MakeRequest(_Services_RequestManager__WEBPACK_IMPORTED_MODULE_5__["RequestURL"].Home_Load, "GET", null, true);
 
     if (res.success) {
       this.setState({
@@ -482,7 +482,7 @@ class RequestManager {
 let RequestURL;
 
 (function (RequestURL) {
-  RequestURL["Question_LoadAll"] = "Question/LoadAll";
+  RequestURL["Home_Load"] = "Home/Load";
 })(RequestURL || (RequestURL = {}));
 
 let PageRoute;

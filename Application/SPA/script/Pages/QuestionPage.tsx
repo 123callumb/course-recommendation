@@ -30,7 +30,7 @@ class QuestionPage_Comp extends React.Component<QuestionPage_Props, QuestionPage
     }
 
     async LoadQuestions() {
-        const res = await RequestManager.MakeRequest<Section[]>(RequestURL.Question_LoadAll, "GET", null, true);
+        const res = await RequestManager.MakeRequest<Section[]>(RequestURL.Home_Load, "GET", null, true);
 
         if (res.success) {
             this.setState({

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Library.Models.Session
 {
-    public class UserSession
+    public class UnsavedUserSession
     {
-        public int SessionID { get; set; }
+        public string SessionCode { get; set; }
         public List<SessionAnswerDTO> AnswerSet { get; set; }
     }
 }

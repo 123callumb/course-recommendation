@@ -1,15 +1,18 @@
 ﻿using Library.Models.AnswerSet.Requests;
 using Microsoft.AspNetCore.Mvc;
+using Services.AnswerSetManagement;
+using Services.SessionManagement;
 using System;
 using System.Threading.Tasks;
 
 namespace Application.Controllers
 {
-    public class AnswerSetController : Controller
+    public class AnswerSetController : BaseController
     {
-        public AnswerSetController()
+        private readonly IAnswerSetManager _answerSetManager;
+        public AnswerSetController(ISessionManager sessionManager, IAnswerSetManager answerSetManager) : base(sessionManager)
         {
-
+            _answerSetManager = answerSetManager;
         }
 
         public async Task<JsonResult> RegisterSessionAnswer([FromBody]AnswerSetRequest request)

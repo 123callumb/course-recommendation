@@ -30,7 +30,7 @@
 }
 
 export enum RequestURL {
-    Question_LoadAll = "Question/LoadAll"
+    Home_Load = "Home/Load"
 }
 
 export enum PageRoute {

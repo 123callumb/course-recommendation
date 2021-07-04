@@ -1,7 +1,6 @@
 ﻿using Library.Models.Session;
 using Microsoft.AspNetCore.Mvc;
 using Services.SessionManagement;
-using System.Threading.Tasks;
 
 namespace Application.Controllers
 {
@@ -14,9 +13,9 @@ namespace Application.Controllers
             _sessionManager = sessionManager;
         }
 
-        protected async Task<UserSession> GetUserSession()
+        protected UnsavedUserSession GetUserSession()
         {
-            return await _sessionManager.GetOrSetSession();
+            return _sessionManager.GetOrSetSession();
         }
     }
 }
