@@ -16,11 +16,21 @@ export default class Section_Comp extends React.Component<SectionComp_Props> {
     }
 
     MultiQuestion() {
-        return <MultiRadioQuestion answers={this.props.section.Answers} answerSet={this.props.sectionAnswers} questions={this.props.section.Questions} sectionID={this.props.section.SectionID} />;
+        return <MultiRadioQuestion
+            answers={this.props.section.Answers}
+            answerSet={this.props.sectionAnswers}
+            questions={this.props.section.Questions}
+            sectionID={this.props.section.SectionID}
+        />;
     }
 
     SingleQuestion() {
-        return <SingleRadioQuestion answers={this.props.section.Answers} answerSet={this.props.sectionAnswers.length > 0 ? this.props.sectionAnswers[0] : null} sectionID={this.props.section.SectionID} />;
+        return <SingleRadioQuestion
+            key={this.props.sectionAnswers[0]?.AnswerID ?? this.props.section.SectionID} // dumb
+            answers={this.props.section.Answers}
+            answerSet={this.props.sectionAnswers.length > 0 ? this.props.sectionAnswers[0] : null}
+            sectionID={this.props.section.SectionID}
+        />;
     }
 
     render() {

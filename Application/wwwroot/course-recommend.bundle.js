@@ -138,7 +138,7 @@ class MultiRadioQuestion_Comp extends react__WEBPACK_IMPORTED_MODULE_1___default
       textAlign: "center"
     }, e.Text))), this.props.questions.map((e, i) => {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["RadioGroup"], {
-        key: i,
+        key: this.props.sectionID + "_" + i,
         value: this.GetAnswerForQuestion(e.QuestionID),
         onChange: newVal => this.props.SetAnswerSet(this.props.sectionID, parseInt(newVal), e.QuestionID)
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["SimpleGrid"], {
@@ -192,14 +192,13 @@ class SingleRadioQuestion_Comp extends react__WEBPACK_IMPORTED_MODULE_1___defaul
 
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["RadioGroup"], {
       value: (_this$props$answerSet = this.props.answerSet) === null || _this$props$answerSet === void 0 ? void 0 : _this$props$answerSet.AnswerID.toString(),
-      onChange: nextVal => this.props.SetAnswerSet(this.props.sectionID, parseInt(nextVal)),
-      defaultChecked: false
+      onChange: nextVal => this.props.SetAnswerSet(this.props.sectionID, parseInt(nextVal))
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Stack"], {
       spacing: "3",
       mt: "3"
-    }, this.props.answers.map(e => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Radio"], {
+    }, this.props.answers.map((e, i) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Radio"], {
       size: "md",
-      key: e.AnswerID,
+      key: i,
       value: e.AnswerID.toString()
     }, e.Text))));
   }
@@ -247,7 +246,11 @@ class Section_Comp extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Componen
   }
 
   SingleQuestion() {
+    var _this$props$sectionAn, _this$props$sectionAn2;
+
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Question_SingleRadioQuestion__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      key: (_this$props$sectionAn = (_this$props$sectionAn2 = this.props.sectionAnswers[0]) === null || _this$props$sectionAn2 === void 0 ? void 0 : _this$props$sectionAn2.AnswerID) !== null && _this$props$sectionAn !== void 0 ? _this$props$sectionAn : this.props.section.SectionID // dumb
+      ,
       answers: this.props.section.Answers,
       answerSet: this.props.sectionAnswers.length > 0 ? this.props.sectionAnswers[0] : null,
       sectionID: this.props.section.SectionID
@@ -358,7 +361,7 @@ class QuestionPage_Comp extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Com
       value: (this.state.SectionPosition + 1) / this.state.Sections.length * 100,
       size: "sm"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
-      boxShadow: "xs",
+      boxShadow: "md",
       p: "2"
     }, this.state.SectionPosition > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Button"], {
       float: "left",
@@ -367,18 +370,18 @@ class QuestionPage_Comp extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Com
         SectionPosition: this.state.SectionPosition - 1
       }),
       leftIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_icons__WEBPACK_IMPORTED_MODULE_0__["ArrowBackIcon"], null)
-    }, "Previous Question") : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
+    }, "Previous") : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
       textAlign: "right"
     }, this.state.SectionPosition === this.state.Sections.length - 1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-      colorScheme: "teal",
+      colorScheme: "linkedin",
       rightIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_icons__WEBPACK_IMPORTED_MODULE_0__["StarIcon"], null)
-    }, "View Recommendation") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    }, "Submit") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Button"], {
       colorScheme: "teal",
       onClick: () => this.setState({
         SectionPosition: this.state.SectionPosition + 1
       }),
       rightIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_icons__WEBPACK_IMPORTED_MODULE_0__["ArrowForwardIcon"], null)
-    }, "Next Question"))))));
+    }, "Next"))))));
   }
 
 }
@@ -547,7 +550,7 @@ function AnswersReducer(state = [], action) {
       const exisitngAnswer = state.find(f => f.SectionID === toSet.SectionID && (toSet.QuestionID === null || toSet.QuestionID === f.QuestionID));
       if (exisitngAnswer) exisitngAnswer.AnswerID = toSet.AnswerID;else state.push(toSet);
       _Services_RequestManager__WEBPACK_IMPORTED_MODULE_0__["default"].MakeRequest(_Services_RequestManager__WEBPACK_IMPORTED_MODULE_0__["RequestURL"].AnswerSet_RegisterSessionAnswer, "POST", exisitngAnswer !== null && exisitngAnswer !== void 0 ? exisitngAnswer : toSet);
-      return state;
+      return [...state];
 
     case Answers_Set_State_Action:
       return action.payload;

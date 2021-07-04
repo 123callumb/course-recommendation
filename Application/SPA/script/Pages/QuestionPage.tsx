@@ -66,13 +66,13 @@ class QuestionPage_Comp extends React.Component<QuestionPage_Props, QuestionPage
             <Box position="fixed" textAlign="center" bottom="4" width="100%">
                 <Container maxW="container.md">
                     <Progress value={((this.state.SectionPosition + 1) / this.state.Sections.length) * 100} size="sm"/>
-                    <Box boxShadow="xs" p="2">
-                        {this.state.SectionPosition > 0 ? <Button float="left" colorScheme="teal" onClick={() => this.setState({ SectionPosition: this.state.SectionPosition - 1 })} leftIcon={<ArrowBackIcon />}>Previous Question</Button> : null}
+                    <Box boxShadow="md" p="2">
+                        {this.state.SectionPosition > 0 ? <Button float="left" colorScheme="teal" onClick={() => this.setState({ SectionPosition: this.state.SectionPosition - 1 })} leftIcon={<ArrowBackIcon />}>Previous</Button> : null}
                         <Box textAlign="right">
                             {this.state.SectionPosition === (this.state.Sections.length - 1) ?
-                                <Button colorScheme="teal" rightIcon={<StarIcon />}>View Recommendation</Button>
+                                <Button colorScheme="linkedin" rightIcon={<StarIcon />}>Submit</Button>
                                 :
-                                <Button colorScheme="teal" onClick={() => this.setState({ SectionPosition: this.state.SectionPosition + 1 })} rightIcon={<ArrowForwardIcon />}>Next Question</Button>
+                                <Button colorScheme="teal" onClick={() => this.setState({ SectionPosition: this.state.SectionPosition + 1 })} rightIcon={<ArrowForwardIcon />}>Next</Button>
                             }
                         </Box>
                     </Box>

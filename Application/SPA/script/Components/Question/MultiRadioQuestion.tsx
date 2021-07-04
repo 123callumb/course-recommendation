@@ -33,7 +33,7 @@ class MultiRadioQuestion_Comp extends React.Component<MultiRadioComp_Props> {
                 {this.props.answers.map((e, i) => <Box key={i} textAlign="center">{e.Text}</Box>)}
             </SimpleGrid>
             {this.props.questions.map((e, i) => {
-                return <RadioGroup key={i} value={this.GetAnswerForQuestion(e.QuestionID)} onChange={(newVal: string) => this.props.SetAnswerSet(this.props.sectionID, parseInt(newVal), e.QuestionID) }>
+                return <RadioGroup key={this.props.sectionID + "_" + i} value={this.GetAnswerForQuestion(e.QuestionID)} onChange={(newVal: string) => this.props.SetAnswerSet(this.props.sectionID, parseInt(newVal), e.QuestionID) }>
                     <SimpleGrid columns={ansCount + 1}>
                         <Box >{e.Text}</Box>
                         {this.props.answers.map((r, ind) =>

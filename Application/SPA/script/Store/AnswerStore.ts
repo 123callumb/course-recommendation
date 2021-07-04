@@ -52,7 +52,7 @@ export function AnswersReducer(state: AnswerSet[] = [], action: AnswersSetAction
 
             RequestManager.MakeRequest<null, AnswerSet>(RequestURL.AnswerSet_RegisterSessionAnswer, "POST", exisitngAnswer ?? toSet);
 
-            return state;
+            return [...state];
         case Answers_Set_State_Action:
             return action.payload;
         default:
