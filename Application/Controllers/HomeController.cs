@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Library.Models.Home.Responses;
+using Microsoft.AspNetCore.Mvc;
 using Services.QuestionManagement;
 using Services.SessionManagement;
 using System;
@@ -25,7 +26,8 @@ namespace Application.Controllers
             {
                 var questions = await _questionManager.LoadAll();
                 var existingSessionAnswers = GetUserSession();
-                return new JsonResult(new { success = true, data = questions });
+                var viewModel = new HomeLoadResponse(existingSessionAnswers.AnswerSet, questions);
+                return new JsonResult(new { success = true, data = viewModel });
             }
             catch (Exception e)
             {

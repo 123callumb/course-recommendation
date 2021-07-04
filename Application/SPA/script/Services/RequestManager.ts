@@ -30,7 +30,8 @@
 }
 
 export enum RequestURL {
-    Home_Load = "Home/Load"
+    Home_Load = "Home/Load",
+    AnswerSet_RegisterSessionAnswer = "AnswerSet/RegisterSessionAnswer"
 }
 
 export enum PageRoute {

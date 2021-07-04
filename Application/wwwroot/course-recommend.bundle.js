@@ -292,6 +292,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _Components_Section_Section_Comp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Components/Section/Section_Comp */ "./SPA/script/Components/Section/Section_Comp.tsx");
 /* harmony import */ var _Services_RequestManager__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Services/RequestManager */ "./SPA/script/Services/RequestManager.ts");
+/* harmony import */ var _Store_AnswerStore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Store/AnswerStore */ "./SPA/script/Store/AnswerStore.ts");
+
 
 
 
@@ -313,8 +315,9 @@ class QuestionPage_Comp extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Com
     const res = await _Services_RequestManager__WEBPACK_IMPORTED_MODULE_5__["default"].MakeRequest(_Services_RequestManager__WEBPACK_IMPORTED_MODULE_5__["RequestURL"].Home_Load, "GET", null, true);
 
     if (res.success) {
+      this.props.SetAnswerSetState(res.data.SessionAnswerSets);
       this.setState({
-        Sections: res.data
+        Sections: res.data.Sections
       });
     }
   }
@@ -329,13 +332,9 @@ class QuestionPage_Comp extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Com
   }
 
   render() {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Container"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Container"], {
       maxW: "container.md"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Text"], {
-      size: "md"
-    }, "Question progress:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Progress"], {
-      value: (this.state.SectionPosition + 1) / this.state.Sections.length * 100
-    }), this.state.Sections.length === 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
+    }, this.state.Sections.length === 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
       boxShadow: "xs",
       p: "4",
       mt: "4"
@@ -348,33 +347,47 @@ class QuestionPage_Comp extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Com
     })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_Components_Section_Section_Comp__WEBPACK_IMPORTED_MODULE_4__["default"], {
       section: this.GetCurrentSection(),
       sectionAnswers: this.GetSectionAnswerSet()
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
+      position: "fixed",
+      textAlign: "center",
+      bottom: "4",
+      width: "100%"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Container"], {
+      maxW: "container.md"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Progress"], {
+      value: (this.state.SectionPosition + 1) / this.state.Sections.length * 100,
+      size: "sm"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
-      mt: "4"
+      boxShadow: "xs",
+      p: "2"
     }, this.state.SectionPosition > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+      float: "left",
       colorScheme: "teal",
       onClick: () => this.setState({
         SectionPosition: this.state.SectionPosition - 1
       }),
       leftIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_icons__WEBPACK_IMPORTED_MODULE_0__["ArrowBackIcon"], null)
-    }, "Previous Question") : null, this.state.SectionPosition === this.state.Sections.length - 1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-      float: "right",
+    }, "Previous Question") : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
+      textAlign: "right"
+    }, this.state.SectionPosition === this.state.Sections.length - 1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Button"], {
       colorScheme: "teal",
       rightIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_icons__WEBPACK_IMPORTED_MODULE_0__["StarIcon"], null)
     }, "View Recommendation") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-      float: "right",
       colorScheme: "teal",
       onClick: () => this.setState({
         SectionPosition: this.state.SectionPosition + 1
       }),
       rightIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_icons__WEBPACK_IMPORTED_MODULE_0__["ArrowForwardIcon"], null)
-    }, "Next Question")));
+    }, "Next Question"))))));
   }
 
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])((state, props) => ({
   AnswerSet: state.answers
-}))(QuestionPage_Comp));
+}), {
+  SetAnswerSetState: _Store_AnswerStore__WEBPACK_IMPORTED_MODULE_6__["SetAnswerSetState"]
+})(QuestionPage_Comp));
 
 /***/ }),
 
@@ -483,6 +496,7 @@ let RequestURL;
 
 (function (RequestURL) {
   RequestURL["Home_Load"] = "Home/Load";
+  RequestURL["AnswerSet_RegisterSessionAnswer"] = "AnswerSet/RegisterSessionAnswer";
 })(RequestURL || (RequestURL = {}));
 
 let PageRoute;
@@ -498,14 +512,18 @@ let PageRoute;
 /*!*****************************************!*\
   !*** ./SPA/script/Store/AnswerStore.ts ***!
   \*****************************************/
-/*! exports provided: SetAnswerSet, AnswersReducer */
+/*! exports provided: SetAnswerSet, SetAnswerSetState, AnswersReducer */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetAnswerSet", function() { return SetAnswerSet; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetAnswerSetState", function() { return SetAnswerSetState; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnswersReducer", function() { return AnswersReducer; });
+/* harmony import */ var _Services_RequestManager__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Services/RequestManager */ "./SPA/script/Services/RequestManager.ts");
+
 const Answers_Set_Action = "ACTION_SET_ANSWER";
+const Answers_Set_State_Action = "ACTION_SET_ANSWER_STATE";
 function SetAnswerSet(sectionID, answerID, questionID = null) {
   return {
     type: Answers_Set_Action,
@@ -516,13 +534,23 @@ function SetAnswerSet(sectionID, answerID, questionID = null) {
     }
   };
 }
+function SetAnswerSetState(existingAnswerSet) {
+  return {
+    type: Answers_Set_State_Action,
+    payload: existingAnswerSet
+  };
+}
 function AnswersReducer(state = [], action) {
   switch (action.type) {
     case Answers_Set_Action:
       const toSet = action.payload;
       const exisitngAnswer = state.find(f => f.SectionID === toSet.SectionID && (toSet.QuestionID === null || toSet.QuestionID === f.QuestionID));
       if (exisitngAnswer) exisitngAnswer.AnswerID = toSet.AnswerID;else state.push(toSet);
+      _Services_RequestManager__WEBPACK_IMPORTED_MODULE_0__["default"].MakeRequest(_Services_RequestManager__WEBPACK_IMPORTED_MODULE_0__["RequestURL"].AnswerSet_RegisterSessionAnswer, "POST", exisitngAnswer !== null && exisitngAnswer !== void 0 ? exisitngAnswer : toSet);
       return state;
+
+    case Answers_Set_State_Action:
+      return action.payload;
 
     default:
       return state;

@@ -16,11 +16,12 @@ namespace Services.AnswerSetManagement.Implementation
         private readonly IGenericQuerier _genericQuerier;
         private readonly IGenericRepo _genericRepo;
         private readonly IMemoryCache _memoryCache;
-        public AnswerSetManager(ISessionManager sessionManager, IGenericQuerier genericQuerier, IGenericRepo genericRepo)
+        public AnswerSetManager(ISessionManager sessionManager, IGenericQuerier genericQuerier, IGenericRepo genericRepo, IMemoryCache memoryCache)
         {
             _sessionManager = sessionManager;
             _genericQuerier = genericQuerier;
             _genericRepo = genericRepo;
+            _memoryCache = memoryCache;
         }
 
         public void SetAnswerSet(int sectionID, int answerID, int? questionID)
@@ -42,6 +43,8 @@ namespace Services.AnswerSetManagement.Implementation
                 });
             else
                 currentAnswer.AnswerID = answerID;
+
+            _memoryCache.Set(CacheKeys.UserSession(sessionCode), existingAnswers);
         }
 
         public async Task<bool> SaveAnswerSet()

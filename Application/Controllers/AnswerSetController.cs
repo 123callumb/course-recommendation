@@ -15,10 +15,15 @@ namespace Application.Controllers
             _answerSetManager = answerSetManager;
         }
 
-        public async Task<JsonResult> RegisterSessionAnswer([FromBody]AnswerSetRequest request)
+        [HttpPost]
+        public JsonResult RegisterSessionAnswer([FromBody]AnswerSetRequest request)
         {
             try
             {
+                if (request.SectionID == 0 || request.AnswerID == 0)
+                    return new JsonResult(new { success = false, message = "Answer and section id cannot be null" });
+
+                _answerSetManager.SetAnswerSet(request.SectionID, request.AnswerID, request.QuestionID);
                 return new JsonResult(new { success = true });
             }
             catch (Exception e)
