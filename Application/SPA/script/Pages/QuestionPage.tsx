@@ -68,7 +68,7 @@ class QuestionPage_Comp extends React.Component<QuestionPage_Props, QuestionPage
                     :
                     <Group_Comp Group={this.GetCurrentGroup()} AnswerSets={this.GetCurrentAnswerSet()} />}
             </Container>
-            <Box position="fixed" textAlign="center" bottom="4" width="100%">
+            <Box position="fixed" textAlign="center" bottom="4" width="100%" bgColor="white">
                 <Container maxW="container.md">
                     <Progress value={((this.state.GroupPosition + 1) / this.state.Groups.length) * 100} size="sm" />
                     <Box boxShadow="md" p="2">

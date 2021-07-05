@@ -19,10 +19,10 @@ namespace Application.Controllers
         {
             try
             {
-                if (request.SectionID == 0 || request.AnswerID == 0)
-                    return new JsonResult(new { success = false, message = "Answer and section id cannot be null" });
+                if (request.SectionID == 0 || request.AnswerID == 0 || request.GroupID == 0)
+                    return new JsonResult(new { success = false, message = "Answer, section and group id cannot be null" });
 
-                _answerSetManager.SetAnswerSet(request.SectionID, request.AnswerID, request.QuestionID);
+                _answerSetManager.SetAnswerSet(request.GroupID, request.SectionID, request.AnswerID, request.QuestionID);
                 return new JsonResult(new { success = true });
             }
             catch (Exception e)

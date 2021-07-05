@@ -19,13 +19,14 @@ export default class Group_Comp extends React.Component<GroupComp_Props> {
     }
 
     render() {
-        console.log(this.props.AnswerSets);
         return (<>
             <Box>
-                <Heading size="lg">{this.props.Group.Name}</Heading>
-                <Text size="md">{this.props.Group.Description}</Text>
+                <Heading size="lg" mt="6">{this.props.Group.Name}</Heading>
+                <Text size="md" mt="2">{this.props.Group.Description}</Text>
             </Box>
-            {this.props.Group.Sections.map(e => <Section_Comp key={e.SectionID} section={e} sectionAnswers={this.GetSectionAnswerSet(e.SectionID)} groupID={this.props.Group.GroupID} />)}
+            <Box mb="40">
+                {this.props.Group.Sections.map(e => <Section_Comp key={e.SectionID} section={e} sectionAnswers={this.GetSectionAnswerSet(e.SectionID)} groupID={this.props.Group.GroupID} />)}
+            </Box>
         </>);
     }
 }

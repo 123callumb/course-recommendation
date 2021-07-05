@@ -124,17 +124,20 @@ class Group_Comp extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component 
   }
 
   render() {
-    console.log(this.props.AnswerSets);
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Box"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Heading"], {
-      size: "lg"
+      size: "lg",
+      mt: "6"
     }, this.props.Group.Name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Text"], {
-      size: "md"
-    }, this.props.Group.Description)), this.props.Group.Sections.map(e => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Section_Section_Comp__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      size: "md",
+      mt: "2"
+    }, this.props.Group.Description)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Box"], {
+      mb: "40"
+    }, this.props.Group.Sections.map(e => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Section_Section_Comp__WEBPACK_IMPORTED_MODULE_2__["default"], {
       key: e.SectionID,
       section: e,
       sectionAnswers: this.GetSectionAnswerSet(e.SectionID),
       groupID: this.props.Group.GroupID
-    })));
+    }))));
   }
 
 }
@@ -406,7 +409,8 @@ class QuestionPage_Comp extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Com
       position: "fixed",
       textAlign: "center",
       bottom: "4",
-      width: "100%"
+      width: "100%",
+      bgColor: "white"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Container"], {
       maxW: "container.md"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Progress"], {

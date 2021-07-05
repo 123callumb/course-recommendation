@@ -25,7 +25,7 @@ namespace Services.AnswerSetManagement.Implementation
             _memoryCache = memoryCache;
         }
 
-        public void SetAnswerSet(int sectionID, int answerID, int? questionID)
+        public void SetAnswerSet(int groupID, int sectionID, int answerID, int? questionID)
         {
             string sessionCode = _sessionManager.GetUserSessionCode();
             List<SessionAnswerDTO> existingAnswers = new List<SessionAnswerDTO>();
@@ -40,7 +40,8 @@ namespace Services.AnswerSetManagement.Implementation
                 {
                     QuestionID = questionID,
                     AnswerID = answerID,
-                    SectionID = sectionID
+                    SectionID = sectionID,
+                    GroupID = groupID
                 });
             else
                 currentAnswer.AnswerID = answerID;
