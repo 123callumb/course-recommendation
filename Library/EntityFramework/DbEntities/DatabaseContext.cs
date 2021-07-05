@@ -19,6 +19,7 @@ namespace Library.EntityFramework.DbEntities
 
         public virtual DbSet<Answer> Answers { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Section> Sections { get; set; }
         public virtual DbSet<Session> Sessions { get; set; }
@@ -85,6 +86,21 @@ namespace Library.EntityFramework.DbEntities
                     .HasMaxLength(400);
             });
 
+            modelBuilder.Entity<Group>(entity =>
+            {
+                entity.ToTable("group");
+
+                entity.Property(e => e.GroupId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("GroupID");
+
+                entity.Property(e => e.Description).HasMaxLength(500);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(200);
+            });
+
             modelBuilder.Entity<Question>(entity =>
             {
                 entity.ToTable("question");
@@ -117,9 +133,15 @@ namespace Library.EntityFramework.DbEntities
             {
                 entity.ToTable("section");
 
+                entity.HasIndex(e => e.GroupId, "FK_Section_Group");
+
                 entity.Property(e => e.SectionId)
                     .HasColumnType("int(11)")
                     .HasColumnName("SectionID");
+
+                entity.Property(e => e.GroupId)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("GroupID");
 
                 entity.Property(e => e.Order)
                     .HasColumnType("int(11)")
@@ -128,6 +150,12 @@ namespace Library.EntityFramework.DbEntities
                 entity.Property(e => e.Text)
                     .IsRequired()
                     .HasMaxLength(2000);
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.Sections)
+                    .HasForeignKey(d => d.GroupId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Section_Group");
             });
 
             modelBuilder.Entity<Session>(entity =>
@@ -147,13 +175,14 @@ namespace Library.EntityFramework.DbEntities
             {
                 entity.ToTable("session_answer");
 
-                entity.HasIndex(e => e.SessionId, "FK_Session");
-
                 entity.HasIndex(e => e.AnswerId, "FK_Session_Answer");
 
                 entity.HasIndex(e => e.QuestionId, "FK_Session_Question");
 
                 entity.HasIndex(e => e.SectionId, "FK_Session_Section");
+
+                entity.HasIndex(e => new { e.SessionId, e.SectionId, e.QuestionId }, "SessionID_SectionID_QuestionID")
+                    .IsUnique();
 
                 entity.Property(e => e.SessionAnswerId)
                     .HasColumnType("int(11)")

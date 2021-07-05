@@ -6,6 +6,7 @@ import MultiRadioQuestion from "../Question/MultiRadioQuestion";
 import SingleRadioQuestion from "../Question/SingleRadioQuestion";
 
 interface SectionComp_Props {
+    groupID: number;
     section: Section;
     sectionAnswers: AnswerSet[];
 }
@@ -17,6 +18,7 @@ export default class Section_Comp extends React.Component<SectionComp_Props> {
 
     MultiQuestion() {
         return <MultiRadioQuestion
+            groupID={this.props.groupID}
             answers={this.props.section.Answers}
             answerSet={this.props.sectionAnswers}
             questions={this.props.section.Questions}
@@ -26,6 +28,7 @@ export default class Section_Comp extends React.Component<SectionComp_Props> {
 
     SingleQuestion() {
         return <SingleRadioQuestion
+            groupID={this.props.groupID}
             key={this.props.sectionAnswers[0]?.AnswerID ?? this.props.section.SectionID} // dumb
             answers={this.props.section.Answers}
             answerSet={this.props.sectionAnswers.length > 0 ? this.props.sectionAnswers[0] : null}

@@ -1,7 +1,7 @@
 ﻿import { AnswerSet } from "../../Store/AnswerStore";
-import Section from "../Section";
+import Group from "./Group";
 
 export default interface HomeLoadResponse {
     SessionAnswerSets: AnswerSet[]
-    Sections: Section[];
+    Groups: Group[];
 }

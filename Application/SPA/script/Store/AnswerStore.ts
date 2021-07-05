@@ -7,6 +7,7 @@ export interface AnswerSet {
     SectionID: number;
     QuestionID?: number;
     AnswerID: number;
+    GroupID: number;
 }
 
 interface AnswersSetAction {
@@ -20,13 +21,14 @@ interface AnswersSetStateAction {
 }
 
 
-export function SetAnswerSet(sectionID: number, answerID: number, questionID: number = null): AnswersSetAction {
+export function SetAnswerSet(groupID: number, sectionID: number, answerID: number, questionID: number = null): AnswersSetAction {
     return {
         type: Answers_Set_Action,
         payload: {
             AnswerID: answerID,
             SectionID: sectionID,
-            QuestionID: questionID
+            QuestionID: questionID,
+            GroupID: groupID
         }
     }
 }

@@ -84,6 +84,26 @@ INSERT INTO `course` (`CourseID`, `Name`, `Description`) VALUES
 	(1, 'Transacting Digital Skills Course', 'This course includes the learning of skills required to register and apply for services, buy and sell goods and services, and administer and manage transactions online.');
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 
+CREATE TABLE IF NOT EXISTS `group` (
+  `GroupID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(200) NOT NULL,
+  `Description` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`GroupID`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+
+DELETE FROM `group`;
+/*!40000 ALTER TABLE `group` DISABLE KEYS */;
+INSERT INTO `group` (`GroupID`, `Name`, `Description`) VALUES
+	(1, 'Digital Skills Assessment', 'This form has been developed to identify the digital skills of Sheffield City Council staff. The information from this  questionnaire is completely confidential and will be used to inform us of the types of training programmes needed to ensure our staff can live confidently in an increasingly digital world.'),
+	(2, 'A little about you...', 'This information is being collected to group similar people. This information is not used to identify you as an individual.'),
+	(3, 'Digital Foundation Skills', NULL),
+	(4, 'Managing Information', NULL),
+	(5, 'Communicating', NULL),
+	(6, 'Transacting', NULL),
+	(7, 'Problem Solving', NULL),
+	(8, 'Creating', NULL);
+/*!40000 ALTER TABLE `group` ENABLE KEYS */;
+
 CREATE TABLE IF NOT EXISTS `question` (
   `QuestionID` int(11) NOT NULL AUTO_INCREMENT,
   `Text` varchar(2000) NOT NULL,
@@ -111,27 +131,30 @@ CREATE TABLE IF NOT EXISTS `section` (
   `SectionID` int(11) NOT NULL AUTO_INCREMENT,
   `Text` varchar(2000) NOT NULL,
   `Order` int(11) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`SectionID`)
+  `GroupID` int(11) NOT NULL,
+  PRIMARY KEY (`SectionID`),
+  KEY `FK_Section_Group` (`GroupID`),
+  CONSTRAINT `FK_Section_Group` FOREIGN KEY (`GroupID`) REFERENCES `group` (`GroupID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
 DELETE FROM `section`;
 /*!40000 ALTER TABLE `section` DISABLE KEYS */;
-INSERT INTO `section` (`SectionID`, `Text`, `Order`) VALUES
-	(1, 'How old are you?', 1),
-	(2, 'Gender', 2),
-	(3, 'At home I can use the internet to...', 3),
-	(4, 'At work I can use the internet to...', 4),
-	(5, 'Can you use a search engine to look for information online?', 5),
-	(6, 'Can you download/save a photo you found online', 6),
-	(7, 'Can you find a website you have visited before?', 7),
-	(8, 'Can you send a personal message to another person using email or an online message service?', 8),
-	(9, 'Can you carefully make comments and share information online?', 9),
-	(10, 'Can you buy items or services from a website?', 10),
-	(11, 'Can you buy and install apps on a device?', 11),
-	(12, 'Can you solve a problem you have with a device or digital service using online help?', 12),
-	(13, 'Can you verify sources of information you have found online?', 13),
-	(14, 'Can you complete online application forms which include personal details?', 14),
-	(15, 'Can you create something new from existing online images, music or video?', 15);
+INSERT INTO `section` (`SectionID`, `Text`, `Order`, `GroupID`) VALUES
+	(1, 'How old are you?', 1, 2),
+	(2, 'Gender', 2, 2),
+	(3, 'At home I can use the internet to...', 3, 3),
+	(4, 'At work I can use the internet to...', 4, 3),
+	(5, 'Can you use a search engine to look for information online?', 5, 4),
+	(6, 'Can you download/save a photo you found online', 6, 4),
+	(7, 'Can you find a website you have visited before?', 7, 4),
+	(8, 'Can you send a personal message to another person using email or an online message service?', 8, 5),
+	(9, 'Can you carefully make comments and share information online?', 9, 5),
+	(10, 'Can you buy items or services from a website?', 10, 6),
+	(11, 'Can you buy and install apps on a device?', 11, 6),
+	(12, 'Can you solve a problem you have with a device or digital service using online help?', 12, 7),
+	(13, 'Can you verify sources of information you have found online?', 13, 7),
+	(14, 'Can you complete online application forms which include personal details?', 14, 8),
+	(15, 'Can you create something new from existing online images, music or video?', 15, 8);
 /*!40000 ALTER TABLE `section` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `session` (

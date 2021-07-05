@@ -97,6 +97,50 @@ __webpack_require__(/*! ./script/Pages/RoutePage */ "./SPA/script/Pages/RoutePag
 
 /***/ }),
 
+/***/ "./SPA/script/Components/Group/Group_Comp.tsx":
+/*!****************************************************!*\
+  !*** ./SPA/script/Components/Group/Group_Comp.tsx ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Group_Comp; });
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Section_Section_Comp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Section/Section_Comp */ "./SPA/script/Components/Section/Section_Comp.tsx");
+
+
+
+class Group_Comp extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  GetSectionAnswerSet(sectionID) {
+    return this.props.AnswerSets.filter(f => f.SectionID === sectionID);
+  }
+
+  render() {
+    console.log(this.props.AnswerSets);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Box"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Heading"], {
+      size: "lg"
+    }, this.props.Group.Name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Text"], {
+      size: "md"
+    }, this.props.Group.Description)), this.props.Group.Sections.map(e => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Section_Section_Comp__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      key: e.SectionID,
+      section: e,
+      sectionAnswers: this.GetSectionAnswerSet(e.SectionID),
+      groupID: this.props.Group.GroupID
+    })));
+  }
+
+}
+
+/***/ }),
+
 /***/ "./SPA/script/Components/Question/MultiRadioQuestion.tsx":
 /*!***************************************************************!*\
   !*** ./SPA/script/Components/Question/MultiRadioQuestion.tsx ***!
@@ -140,7 +184,7 @@ class MultiRadioQuestion_Comp extends react__WEBPACK_IMPORTED_MODULE_1___default
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["RadioGroup"], {
         key: this.props.sectionID + "_" + i,
         value: this.GetAnswerForQuestion(e.QuestionID),
-        onChange: newVal => this.props.SetAnswerSet(this.props.sectionID, parseInt(newVal), e.QuestionID)
+        onChange: newVal => this.props.SetAnswerSet(this.props.groupID, this.props.sectionID, parseInt(newVal), e.QuestionID)
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["SimpleGrid"], {
         columns: ansCount + 1
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Box"], null, e.Text), this.props.answers.map((r, ind) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Box"], {
@@ -192,7 +236,7 @@ class SingleRadioQuestion_Comp extends react__WEBPACK_IMPORTED_MODULE_1___defaul
 
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["RadioGroup"], {
       value: (_this$props$answerSet = this.props.answerSet) === null || _this$props$answerSet === void 0 ? void 0 : _this$props$answerSet.AnswerID.toString(),
-      onChange: nextVal => this.props.SetAnswerSet(this.props.sectionID, parseInt(nextVal))
+      onChange: nextVal => this.props.SetAnswerSet(this.props.groupID, this.props.sectionID, parseInt(nextVal))
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__["Stack"], {
       spacing: "3",
       mt: "3"
@@ -238,6 +282,7 @@ class Section_Comp extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Componen
 
   MultiQuestion() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Question_MultiRadioQuestion__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      groupID: this.props.groupID,
       answers: this.props.section.Answers,
       answerSet: this.props.sectionAnswers,
       questions: this.props.section.Questions,
@@ -249,6 +294,7 @@ class Section_Comp extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Componen
     var _this$props$sectionAn, _this$props$sectionAn2;
 
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Question_SingleRadioQuestion__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      groupID: this.props.groupID,
       key: (_this$props$sectionAn = (_this$props$sectionAn2 = this.props.sectionAnswers[0]) === null || _this$props$sectionAn2 === void 0 ? void 0 : _this$props$sectionAn2.AnswerID) !== null && _this$props$sectionAn !== void 0 ? _this$props$sectionAn : this.props.section.SectionID // dumb
       ,
       answers: this.props.section.Answers,
@@ -293,7 +339,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _Components_Section_Section_Comp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Components/Section/Section_Comp */ "./SPA/script/Components/Section/Section_Comp.tsx");
+/* harmony import */ var _Components_Group_Group_Comp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Components/Group/Group_Comp */ "./SPA/script/Components/Group/Group_Comp.tsx");
 /* harmony import */ var _Services_RequestManager__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Services/RequestManager */ "./SPA/script/Services/RequestManager.ts");
 /* harmony import */ var _Store_AnswerStore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Store/AnswerStore */ "./SPA/script/Store/AnswerStore.ts");
 
@@ -308,9 +354,11 @@ class QuestionPage_Comp extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Com
   constructor(props) {
     super(props);
     this.state = {
-      Sections: [],
-      SectionPosition: 0
-    }; // TODO: find a nicer way to reset the session storage, this is just for people 
+      Groups: [],
+      GroupPosition: 0
+    };
+    this.GetCurrentAnswerSet = this.GetCurrentAnswerSet.bind(this);
+    this.GetCurrentGroup = this.GetCurrentGroup.bind(this); // TODO: find a nicer way to reset the session storage, this is just for people 
     // whom feel the need  to refresh the page on the recommendation page.
     // Probably add it to the session storage on server...
 
@@ -324,24 +372,24 @@ class QuestionPage_Comp extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Com
     if (res.success) {
       this.props.SetAnswerSetState(res.data.SessionAnswerSets);
       this.setState({
-        Sections: res.data.Sections
+        Groups: res.data.Groups
       });
     }
   }
 
-  GetCurrentSection() {
-    return this.state.Sections[this.state.SectionPosition];
+  GetCurrentGroup() {
+    return this.state.Groups[this.state.GroupPosition];
   }
 
-  GetSectionAnswerSet() {
-    const sectionID = this.GetCurrentSection().SectionID;
-    return this.props.AnswerSet.filter(f => f.SectionID === sectionID);
+  GetCurrentAnswerSet() {
+    const currentGroupID = this.GetCurrentGroup().GroupID;
+    return this.props.AnswerSet.filter(f => f.GroupID === currentGroupID);
   }
 
   render() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Container"], {
       maxW: "container.md"
-    }, this.state.Sections.length === 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
+    }, this.state.Groups.length === 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
       boxShadow: "xs",
       p: "4",
       mt: "4"
@@ -351,9 +399,9 @@ class QuestionPage_Comp extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Com
     }, "Loading Questions..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Progress"], {
       size: "xs",
       isIndeterminate: true
-    })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_Components_Section_Section_Comp__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      section: this.GetCurrentSection(),
-      sectionAnswers: this.GetSectionAnswerSet()
+    })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_Components_Group_Group_Comp__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      Group: this.GetCurrentGroup(),
+      AnswerSets: this.GetCurrentAnswerSet()
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
       position: "fixed",
       textAlign: "center",
@@ -362,28 +410,28 @@ class QuestionPage_Comp extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Com
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Container"], {
       maxW: "container.md"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Progress"], {
-      value: (this.state.SectionPosition + 1) / this.state.Sections.length * 100,
+      value: (this.state.GroupPosition + 1) / this.state.Groups.length * 100,
       size: "sm"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
       boxShadow: "md",
       p: "2"
-    }, this.state.SectionPosition > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    }, this.state.GroupPosition > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Button"], {
       float: "left",
       colorScheme: "teal",
       onClick: () => this.setState({
-        SectionPosition: this.state.SectionPosition - 1
+        GroupPosition: this.state.GroupPosition - 1
       }),
       leftIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_icons__WEBPACK_IMPORTED_MODULE_0__["ArrowBackIcon"], null)
     }, "Previous") : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
       textAlign: "right"
-    }, this.state.SectionPosition === this.state.Sections.length - 1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    }, this.state.GroupPosition === this.state.Groups.length - 1 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Button"], {
       colorScheme: "linkedin",
       rightIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_icons__WEBPACK_IMPORTED_MODULE_0__["StarIcon"], null),
       onClick: () => _Services_RequestManager__WEBPACK_IMPORTED_MODULE_5__["default"].ChangeURL(_Services_RequestManager__WEBPACK_IMPORTED_MODULE_5__["PageRoute"].Recommendation)
     }, "Submit") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Button"], {
       colorScheme: "teal",
       onClick: () => this.setState({
-        SectionPosition: this.state.SectionPosition + 1
+        GroupPosition: this.state.GroupPosition + 1
       }),
       rightIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_chakra_ui_icons__WEBPACK_IMPORTED_MODULE_0__["ArrowForwardIcon"], null)
     }, "Next"))))));
@@ -624,13 +672,14 @@ __webpack_require__.r(__webpack_exports__);
 
 const Answers_Set_Action = "ACTION_SET_ANSWER";
 const Answers_Set_State_Action = "ACTION_SET_ANSWER_STATE";
-function SetAnswerSet(sectionID, answerID, questionID = null) {
+function SetAnswerSet(groupID, sectionID, answerID, questionID = null) {
   return {
     type: Answers_Set_Action,
     payload: {
       AnswerID: answerID,
       SectionID: sectionID,
-      QuestionID: questionID
+      QuestionID: questionID,
+      GroupID: groupID
     }
   };
 }

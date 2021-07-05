@@ -5,12 +5,12 @@ namespace Library.Models.Responses
 {
     public class HomeLoadResponse
     {
-        public HomeLoadResponse(List<SessionAnswerDTO> sessionAnswers, List<SectionDTO> sections)
+        public HomeLoadResponse(List<SessionAnswerDTO> sessionAnswers, List<GroupDTO> groups)
         {
             SessionAnswerSets = sessionAnswers;
-            Sections = sections;
+            Groups = groups;
         }
         public List<SessionAnswerDTO> SessionAnswerSets { get; set; }
-        public List<SectionDTO> Sections { get; set; }
+        public List<GroupDTO> Groups { get; set; }
     }
 }

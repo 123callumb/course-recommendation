@@ -7,6 +7,7 @@ import { AppState } from "../../Store/reducer";
 import { SetAnswerSet } from "../../Store/AnswerStore";
 
 interface SingleRadioComp_Props {
+    groupID: number;
     sectionID: number;
     answers: Answer[];
     answerSet?: AnswerSet;
@@ -19,7 +20,7 @@ class SingleRadioQuestion_Comp extends React.Component<SingleRadioComp_Props> {
     }
 
     render() {
-        return <RadioGroup value={this.props.answerSet?.AnswerID.toString()} onChange={(nextVal: string) => this.props.SetAnswerSet(this.props.sectionID, parseInt(nextVal))}>
+        return <RadioGroup value={this.props.answerSet?.AnswerID.toString()} onChange={(nextVal: string) => this.props.SetAnswerSet(this.props.groupID, this.props.sectionID, parseInt(nextVal))}>
             <Stack spacing="3" mt="3">
                 {this.props.answers.map((e, i) =>
                     <Radio size="md" key={i} value={e.AnswerID.toString()}>
