@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `session` (
   `SessionID` int(11) NOT NULL AUTO_INCREMENT,
   `DateCreated` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`SessionID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 DELETE FROM `session`;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
@@ -169,7 +169,8 @@ INSERT INTO `session` (`SessionID`, `DateCreated`) VALUES
 	(1, '2021-07-04 21:12:52'),
 	(2, '2021-07-04 21:37:38'),
 	(3, '2021-07-04 21:57:14'),
-	(4, '2021-07-05 18:36:35');
+	(4, '2021-07-05 18:36:35'),
+	(5, '2021-07-05 22:38:56');
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `session_answer` (
@@ -187,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `session_answer` (
   CONSTRAINT `FK_Session_Answer` FOREIGN KEY (`AnswerID`) REFERENCES `answer` (`AnswerID`),
   CONSTRAINT `FK_Session_Question` FOREIGN KEY (`QuestionID`) REFERENCES `question` (`QuestionID`),
   CONSTRAINT `FK_Session_Section` FOREIGN KEY (`SectionID`) REFERENCES `section` (`SectionID`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4;
 
 DELETE FROM `session_answer`;
 /*!40000 ALTER TABLE `session_answer` DISABLE KEYS */;
@@ -242,7 +243,25 @@ INSERT INTO `session_answer` (`SessionAnswerID`, `SessionID`, `SectionID`, `Answ
 	(48, 4, 3, 10, 3),
 	(49, 4, 2, 8, NULL),
 	(50, 4, 4, 13, 10),
-	(51, 4, 15, 48, NULL);
+	(51, 4, 15, 48, NULL),
+	(52, 5, 1, 3, NULL),
+	(53, 5, 6, 20, NULL),
+	(54, 5, 3, 12, 3),
+	(55, 5, 3, 11, 4),
+	(56, 5, 14, 44, NULL),
+	(57, 5, 15, 47, NULL),
+	(58, 5, 12, 37, NULL),
+	(59, 5, 13, 41, NULL),
+	(60, 5, 10, 32, NULL),
+	(61, 5, 11, 35, NULL),
+	(62, 5, 8, 26, NULL),
+	(63, 5, 9, 29, NULL),
+	(64, 5, 3, 12, 8),
+	(65, 5, 3, 11, 5),
+	(66, 5, 3, 10, 6),
+	(67, 5, 2, 8, NULL),
+	(68, 5, 5, 16, NULL),
+	(69, 5, 7, 23, NULL);
 /*!40000 ALTER TABLE `session_answer` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
