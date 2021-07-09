@@ -2,7 +2,7 @@
 import { createStore, applyMiddleware, DeepPartial } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { routerMiddleware } from 'connected-react-router';
-import { AppState, RootReducer } from './reducer';
+import { AppState, RootReducer } from './Reducer';
 
 export const AppHistory = createBrowserHistory();
 

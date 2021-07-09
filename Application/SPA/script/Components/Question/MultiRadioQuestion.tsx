@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Answer from "../../Models/Answer";
 import { Question } from "../../Models/Question";
 import { AnswerSet, SetAnswerSet } from "../../Store/AnswerStore";
-import { AppState } from "../../Store/reducer";
+import { AppState } from "../../Store/Reducer";
 
 interface MultiRadioComp_Props {
     groupID: number;

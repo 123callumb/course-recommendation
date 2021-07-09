@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Answer from "../../Models/Answer";
 import { AnswerSet } from "../../Store/AnswerStore";
-import { AppState } from "../../Store/reducer";
+import { AppState } from "../../Store/Reducer";
 import { SetAnswerSet } from "../../Store/AnswerStore";
 
 interface SingleRadioComp_Props {

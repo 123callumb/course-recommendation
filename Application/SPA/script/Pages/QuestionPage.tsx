@@ -7,7 +7,7 @@ import Group from "../Models/Responses/Group";
 import HomeLoadResponse from "../Models/Responses/HomeLoadResponse";
 import RequestManager, { PageRoute, RequestURL } from "../Services/RequestManager";
 import { AnswerSet, SetAnswerSetState } from "../Store/AnswerStore";
-import { AppState } from "../Store/reducer";
+import { AppState } from "../Store/Reducer";
 
 interface QuestionPage_Props {
     AnswerSet: AnswerSet[];
