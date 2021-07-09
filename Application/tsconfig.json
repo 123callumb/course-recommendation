@@ -6,6 +6,7 @@
     "module": "commonjs",
     "target": "es6",
     "jsx": "react",
+    "skipLibCheck": true,
     "lib": [
       "es6",
       "dom",
